@@ -1,0 +1,19 @@
+version: '3.6'
+
+services:
+  bot:
+    image: php:7.3-alpine
+    volumes:
+      - ./volumes/log:/var/log
+      - ./web:/var/www/html
+    restart: always
+    ports:
+      - "9001:80"
+  test:
+    image: php:7.3-alpine
+    volumes:
+      - ./volumes/test/log:/var/log
+      - ./test:/var/www/html
+    restart: always
+    ports:
+      - "9000:80"

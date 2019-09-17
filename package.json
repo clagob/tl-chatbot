@@ -1,0 +1,40 @@
+{
+  "name": "bot.think-life",
+  "version": "1.0.0",
+  "description": "Conversation bot lead generation",
+  "main": " ",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Inchora/thinklife-bot.git"
+  },
+  "keywords": [
+    "bot",
+    "conversation",
+    "form",
+    "leads",
+    "generation"
+  ],
+  "author": "Claudio Gobetti <claudio.gobetti@inchora.com>",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/Inchora/thinklife-bot/issues"
+  },
+  "homepage": "https://github.com/Inchora/thinklife-bot#readme",
+  "engines": {
+    "node": ">= 12.4.0",
+    "npm": ">= 6.9.0"
+  },
+  "dependencies": {
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.6.1",
+    "webpack": "^4.40.2"
+  }
+}
