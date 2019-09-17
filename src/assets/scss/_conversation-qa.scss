@@ -1,0 +1,10 @@
+@import "variables";
+
+.conversation-qa {
+  display: flex;
+  flex-direction: column;
+  padding-left: 3rem;
+  &.active {
+
+  }
+}

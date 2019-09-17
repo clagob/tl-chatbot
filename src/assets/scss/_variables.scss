@@ -1,0 +1,36 @@
+// @import "functions";
+
+$blue:        #327fe9;
+$lightGrey:   #e6e7ed;
+$gradiant:  linear-gradient(to bottom, #77a7e5 0%,#327fe9 80%);
+
+$red:         #FF0000;
+
+
+$sms-margin:      0 0 .5rem;
+$sms-padding-x:   1rem;
+$sms-padding-y:   .5rem;
+$sms-radius:      1rem;
+
+$sms-in-bg:       $lightGrey;
+$sms-in-txt:      black;
+
+$sms-out-bg:      $gradiant;
+$sms-out-txt:     white;
+$sms-options-bg:  white;
+$sms-options-txt: black;
+$sms-out-options-border: $lightGrey;
+
+$sms-editor-bg:               $sms-out-bg;
+$sms-editor-txt:              $sms-out-txt;
+$sms-editor-input-bg:         white;
+$sms-editor-input-txt:        black;
+$sms-editor-input-placeholder: #6c757d;
+$sms-editor-input-padding-x:  .5em;
+$sms-editor-input-padding-y:  .3em;
+$sms-editor-button-bg:        $sms-out-bg;
+$sms-editor-button-txt:       $sms-out-txt;
+$sms-editor-button-padding-x:  calc( #{$sms-editor-input-padding-x} + #{$sms-padding-x} );
+$sms-editor-button-padding-y:  calc( #{$sms-editor-input-padding-y} + #{$sms-padding-y} );
+$sms-editor-button-bg-hover:  black;
+$sms-editor-button-txt-hover: white;

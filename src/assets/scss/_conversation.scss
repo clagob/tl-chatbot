@@ -1,0 +1,10 @@
+@import "variables";
+
+.conversation {
+  position: relative;
+  // background-color: white;
+  padding: 1rem;
+  &.conversation-embeded {
+    overflow-y: auto
+  }
+}
