@@ -162,13 +162,6 @@ echo json_encode($json_res);
 
 ////////////////////////////////////////////////////
 
-// function requestedByTheSameDomain() {
-//   // $myDomain       = $_SERVER['SCRIPT_URI'];
-//   // $requestsSource = $_SERVER['HTTP_REFERER'];
-//   // return parse_url($myDomain, PHP_URL_HOST) === parse_url($requestsSource, PHP_URL_HOST);
-//   return (strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === true);
-// }
-
 function sendNotificationEmail($text) {
   try {
     // send email
