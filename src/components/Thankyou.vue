@@ -10,7 +10,7 @@
     <div>
       <div class="">
         <h3>Life Insurance</h3>
-        <p>Monthly premium of <big>&pound; <span/></big></p>
+        <p>Monthly premium of <big>&pound; <span /></big></p>
         <ul>
           <li>Amount: {{ amountLI | currency }}</li>
           <li>Term: {{ termLI }}</li>
@@ -19,7 +19,7 @@
       </div>
       <div class="">
         <h3>Critical Illness</h3>
-        <p>Monthly premium of <big>&pound; <span/></big></p>
+        <p>Monthly premium of <big>&pound; <span /></big></p>
         <ul>
           <li>Amount: {{ amountCI | currency }}</li>
           <li>Term: {{ termCI }}</li>
@@ -28,7 +28,7 @@
       </div>
       <div class="">
         <h3>PDI</h3>
-        <p>Monthly premium of <big>&pound; <span/></big></p>
+        <p>Monthly premium of <big>&pound; <span /></big></p>
       </div>
     </div>
     <!-- <p><button @click="complete = false">Amend your answers</button></p> -->

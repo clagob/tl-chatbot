@@ -7,7 +7,7 @@ export default {
       return this.getItem(itemId).value === 'yes'
     },
     getResponse (id) {
-      let item = this.responses.find(item => item.id === id)
+      const item = this.responses.find(item => item.id === id)
       return item !== undefined ? item.value : undefined
     },
     int (itemId, defaultValue) {

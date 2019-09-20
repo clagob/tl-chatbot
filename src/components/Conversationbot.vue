@@ -1,10 +1,23 @@
 <template>
   <div>
-    <section v-if="!complete" class="main">
-      <conversation :items="items" :responses.sync="responses" :complete.sync="complete"></conversation>
+    <section
+      v-if="!complete"
+      class="main"
+    >
+      <conversation
+        :items="items"
+        :responses.sync="responses"
+        :complete.sync="complete"
+      />
     </section>
-    <section v-else class="results">
-      <thankyou :items="items" :responses="responses"></thankyou>
+    <section
+      v-else
+      class="results"
+    >
+      <thankyou
+        :items="items"
+        :responses="responses"
+      />
     </section>
   </div>
 </template>
@@ -23,7 +36,7 @@ const pattern = {
   name: '[a-zA-Z][a-zA-Z\\- \']*'
 }
 export default {
-  components: {Conversation, Thankyou},
+  components: { Conversation, Thankyou },
   mixins: [ItemResponse],
   data () {
     return {
@@ -34,10 +47,23 @@ export default {
           id: 'A',
           question: 'I want to pay off my debts💳/leave money 💷 behind for my family when I die.',
           type: 'options',
-          options: {'yes': 'Yes! I want to leave my family 👨‍👩‍👧‍👦 without issues.', 'no': 'No, I am already sorted.'},
+          options: { yes: 'Yes! I want to leave my family 👨‍👩‍👧‍👦 without issues.', no: 'No, I am already sorted.' },
+          value: '',
+          next: 'telephone2',
+          // start: true,
+          complete: false,
+          mode: 'hidden'
+        },
+        {
+          id: 'telephone2',
+          question: 'What is your telephone number 🇬🇧📱📞☎?',
+          type: 'tel',
+          required: true,
+          pattern: pattern.phonesUK,
+          preAnswer: 'Please call me on ',
+          placeholder: '07#########',
           value: '',
           next: 'MSG-1',
-          // start: true,
           complete: false,
           mode: 'hidden'
         },
@@ -54,7 +80,7 @@ export default {
           id: 'B',
           question: 'I want to be able to support myself/my family financially if I become unwell. 🏥',
           type: 'options',
-          options: {'yes': 'Correct! 👍', 'no': 'No, I don\'t consider that.'},
+          options: { yes: 'Correct! 👍', no: 'No, I don\'t consider that.' },
           value: '',
           next: 'age',
           complete: false,
@@ -93,7 +119,7 @@ export default {
           id: 'C',
           question: 'I want to be able to return to work asap if I become unwell.',
           type: 'options',
-          options: {'yes': 'Definitely! I cannot afford to stay at home unpaid.', 'no': 'No, I can have a period not working.'},
+          options: { yes: 'Definitely! I cannot afford to stay at home unpaid.', no: 'No, I can have a period not working.' },
           value: '',
           next: 'FORK1',
           complete: false,
@@ -116,7 +142,7 @@ export default {
           id: 'Q1',
           question: 'Do you have a mortgage?',
           type: 'options',
-          options: {'yes': 'Yes 👍', 'no': 'No 👎'},
+          options: { yes: 'Yes 👍', no: 'No 👎' },
           value: '',
           next: (val) => {
             switch (val) {
@@ -153,7 +179,7 @@ export default {
           id: 'M3',
           question: 'What type of mortgage?',
           type: 'options',
-          options: {'repayment': 'Repayment (interest and capital)', 'interest only': 'Interest Only'},
+          options: { repayment: 'Repayment (interest and capital)', 'interest only': 'Interest Only' },
           value: '',
           next: 'M4',
           complete: false,
@@ -173,7 +199,7 @@ export default {
           id: 'Q2',
           question: 'Do you have children under the age of 21?',
           type: 'options',
-          options: {'yes': 'Yes 👍', 'no': 'No 👎'},
+          options: { yes: 'Yes 👍', no: 'No 👎' },
           value: '',
           next: (val) => {
             switch (val) {
@@ -200,7 +226,7 @@ export default {
           id: 'Q3',
           question: 'Is there anyone who relies on you financially?',
           type: 'options',
-          options: {'yes': 'Yes 👍', 'no': 'No 👎'},
+          options: { yes: 'Yes 👍', no: 'No 👎' },
           value: '',
           next: (val) => {
             switch (val) {
@@ -237,7 +263,7 @@ export default {
           id: 'F3',
           question: 'Spouse/Partner?',
           type: 'options',
-          options: {'yes': 'Yes 👍', 'no': 'No 👎'},
+          options: { yes: 'Yes 👍', no: 'No 👎' },
           value: '',
           next: (val) => {
             switch (val) {
@@ -277,7 +303,7 @@ export default {
           id: 'Q4',
           question: 'Do you have a health insurance?',
           type: 'options',
-          options: {'yes': 'Yes 👍', 'no': 'No 👎'},
+          options: { yes: 'Yes 👍', no: 'No 👎' },
           value: '',
           next: 'email',
           complete: false,
@@ -406,7 +432,7 @@ export default {
     ageToDbDate (age) {
       // Age to yyyy-mm-dd
       age = parseInt(age) || 0
-      let date = new Date()
+      const date = new Date()
       date.setFullYear(date.getFullYear() - age)
       return date.toISOString().split('T')[0]
     }

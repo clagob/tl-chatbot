@@ -4,20 +4,24 @@
       class="error"
       aria-live="polite"
       :class="{show: invalidForm}"
-      >
+    >
       <div v-if="invalidForm">
-        <div v-for="(error, index) in errors" :key="index">
-          {{error}}
+        <div
+          v-for="(err, index) in errors"
+          :key="index"
+        >
+          {{ err }}
         </div>
       </div>
     </div>
-    <form novalidate
+    <form
       v-if="item !== null"
+      novalidate
       :class="{ invalid: invalidForm, validated: validated }"
       @submit.prevent="submit"
-      >
+    >
       <div class="editor-content">
-        {{item.preAnswer}}
+        {{ item.preAnswer }}
         <input
           ref="input"
           v-model="item.value"
@@ -31,23 +35,25 @@
           :step="item.step"
           :pattern="item.pattern"
           :required="item.required"
-          @keypress.enter="formValidated"
           :disabled="validating"
-        />
-        {{item.postAnswer}}
+          @keypress.enter="formValidated"
+        >
+        {{ item.postAnswer }}
       </div>
       <button
         type="submit"
-        @click="formValidated"
         :disabled="validating"
-        >
-        GO
+        @click="formValidated"
+      >
+        <span v-if="!validating">GO</span>
+        <span v-if="validating">...</span>
       </button>
     </form>
   </section>
 </template>
 
 <script>
+import config from '@/../config'
 export default {
   props: {
     item: {
@@ -65,8 +71,11 @@ export default {
     }
   },
   computed: {
+    itemType () {
+      return this.item.type.toLowerCase()
+    },
     inputType () {
-      switch (this.item.type.toLowerCase()) {
+      switch (this.itemType) {
         case 'number':
           return 'number'
         case 'email':
@@ -90,6 +99,13 @@ export default {
       //   return false
       // }
       return !this.$refs.input.validity.valid
+    }
+  },
+  beforeDestroy () {
+    if (this.isInvalid) {
+      this.invalidForm = false
+      // prevent jumping edit on a different QA and set as completed
+      this.$emit('notSaved')
     }
   },
   methods: {
@@ -123,15 +139,18 @@ export default {
     validate () {
       this.errors = []
       this.valid = true
-      switch (this.item.type.toLowerCase()) {
+      switch (this.itemType) {
         case 'text':
           this.validateText()
           break
         case 'number':
           this.validateNumber()
           break
-        case 'dob':
-          this.validateDob()
+        case 'tel':
+          this.validateTelephone()
+          break
+        case 'email':
+          this.validateEmail()
           break
         case 'date':
           this.validateDate()
@@ -140,8 +159,8 @@ export default {
           this.item.value = this.item.value.toUpperCase()
           this.validatePostcode()
           break
-        case 'email':
-          this.validateEmail()
+        case 'dob':
+          this.validateDob()
           break
         default:
           if (!this.validGeneric()) {
@@ -212,7 +231,8 @@ export default {
         this.error()
       } else {
         // to do checkTelephone
-        this.save()
+        this.checkTelephone()
+        // this.save()
       }
     },
     validRequired (msg) {
@@ -292,27 +312,33 @@ export default {
     //   return true
     // },
     checkTelephone (msg) {
-      if (this.$refs.input.validity.valid) {
-        this.validating = true
-        this.$http.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-          .then(response => {
-            if (response.error) {
-              this.valid = false
-              this.errors.push(msg || 'Please specify a valid UK phone number')
-            }
-          })
-          .catch(error => {
-            console.log(error)
-          })
-          .finally(() => (this.validating = false))
-      }
-    }
-  },
-  beforeDestroy () {
-    if (this.isInvalid) {
-      this.invalidForm = false
-      // prevent jumping edit on a different QA and set as completed
-      this.$emit('notSaved')
+      // if (this.$refs.input.validity.valid) {
+      this.validating = true
+      const apiUrl = config.IS_DEV ? config.dev.api.telephone : config.build.api.telephone
+      this.$http({
+        method: 'post',
+        url: apiUrl,
+        data: 'telephone=' + this.item.value
+      })
+        .then(response => {
+          console.log('Successful telephone lookup.')
+          console.log(response)
+          if (response.status === 200 && response.data.valid === 'true') {
+            this.save()
+          } else {
+            this.valid = false
+            this.errors.push(msg || 'Please specify a valid UK phone number')
+            this.error()
+          }
+        })
+        .catch(error => {
+          console.error(error)
+          // TODO decide what to do
+        })
+        .finally(() => {
+          this.validating = false
+        })
+      // }
     }
   }
 }

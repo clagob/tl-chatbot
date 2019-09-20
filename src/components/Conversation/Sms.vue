@@ -1,6 +1,6 @@
 <template>
   <div :class="classNames">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     classNames () {
-      let elemClasses = []
+      const elemClasses = []
       elemClasses.push('sms')
       elemClasses.push(this.out ? 'out' : 'in')
       // if (this.no) elemClasses.push('no-sms')

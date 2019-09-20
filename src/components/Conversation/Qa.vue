@@ -1,21 +1,54 @@
+/* eslint-disable vue/no-use-v-if-with-v-for */
 <template>
-  <div v-if="isNotHidden && isRealQA" class="conversation-qa" :class="{ active: isCurrent }">
-    <sms v-if="!isTyping" v-for="(val, index) in questions" :key="index">
-      <p v-html="val"></p>
+  <div
+    v-if="isNotHidden && isRealQA"
+    class="conversation-qa"
+    :class="{ active: isCurrent }"
+  >
+    <sms v-if="!isTyping">
+      <p
+        v-for="(val, index) in questions"
+        :key="index"
+      >
+        {{ val }}
+      </p>
     </sms>
-    <sms v-if="isTyping"><typing /></sms>
-    <sms out v-if="!isTyping && !isMessage" :no="showEditor" :modify="isDone">
-      <p v-if="showAnswer" @click="edit"><span v-html="answer"></span></p>
-      <div v-if="showOptions" class="options">
-        <label v-for="(val, key, index) in item.options"
+    <sms v-if="isTyping">
+      <typing />
+    </sms>
+    <sms
+      v-if="!isTyping && !isMessage"
+      out
+      :no="showEditor"
+      :modify="isDone"
+    >
+      <p
+        v-if="showAnswer"
+        @click="edit"
+      >
+        <span>{{ answer }}</span>
+      </p>
+      <div
+        v-if="showOptions"
+        class="options"
+      >
+        <label
+          v-for="(val, key, index) in item.options"
           :key="key"
           :class="{active: key === item.value}"
           :data-value="key"
-          v-html="val"
           @click="saveOptions(key, index)"
-        ></label>
+        >
+          {{ val }}
+        </label>
       </div>
-      <editor v-if="showEditor" :item="item" @save="save" @notSaved="notSaved" @scrollToBottom="scrollToBottom" />
+      <editor
+        v-if="showEditor"
+        :item="item"
+        @save="save"
+        @notSaved="notSaved"
+        @scrollToBottom="scrollToBottom"
+      />
     </sms>
     <!-- <slot></slot> -->
   </div>
@@ -42,7 +75,10 @@ export default {
       type: Object,
       default: null
     },
-    current: null
+    current: {
+      type: [String, Number],
+      default: null
+    }
   },
   computed: {
     questions () {
@@ -93,6 +129,35 @@ export default {
       return this.item.id === this.current
     }
   },
+  watch: {
+    value (newVal, oldVal) {
+      if (newVal !== '') {
+        this.item.dirty = true
+      } else if (newVal !== oldVal) {
+        // re-edited
+        // change the mode of the decendents
+      }
+    },
+    current (newVal, oldVal) {
+      if (newVal === this.item.id) {
+        if (this.mode === 'hidden' && this.item.complete) {
+          // Down to the next not already answered question
+          this.setModeDone()
+          this.next()
+        } else if (this.mode === 'hidden') {
+          this.loading()
+        }
+      }
+    }
+  },
+  created () {
+    if (this.start) {
+      this.loading()
+    }
+  },
+  updated () {
+    this.$emit('loaded')
+  },
   methods: {
     loading () {
       this.setModeTyping()
@@ -127,7 +192,7 @@ export default {
     isCurrentAnchester () {
       // this.current < this.item.id
       let parent = false
-      for (let item of this.$parent.items) {
+      for (const item of this.$parent.items) {
         if (item.id === this.item.id) {
           break
         }
@@ -161,35 +226,6 @@ export default {
     scrollToBottom () {
       this.$emit('scrollToBottom')
     }
-  },
-  watch: {
-    value (newVal, oldVal) {
-      if (newVal !== '') {
-        this.item.dirty = true
-      } else if (newVal !== oldVal) {
-        // re-edited
-        // change the mode of the decendents
-      }
-    },
-    current (newVal, oldVal) {
-      if (newVal === this.item.id) {
-        if (this.mode === 'hidden' && this.item.complete) {
-          // Down to the next not already answered question
-          this.setModeDone()
-          this.next()
-        } else if (this.mode === 'hidden') {
-          this.loading()
-        }
-      }
-    }
-  },
-  created () {
-    if (this.start) {
-      this.loading()
-    }
-  },
-  updated () {
-    this.$emit('loaded')
   }
 }
 </script>

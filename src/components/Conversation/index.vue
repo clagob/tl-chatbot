@@ -12,23 +12,17 @@
       @edit="edit"
       @scrollToBottom="scrollToBottom"
     />
-    <h2 v-if="items === null || items.length === 0">Sorry there is nothing that I have to say. Bye!</h2>
+    <h2 v-if="items === null || items.length === 0">
+      Sorry there is nothing that I have to say. Bye!
+    </h2>
   </div>
 </template>
 
 <script>
 import Qa from '@/components/Conversation/Qa'
-import Sms from '@/components/Conversation/Sms'
-import Typing from '@/components/Conversation/Typing'
-import Editor from '@/components/Conversation/Editor'
 
 export default {
-  components: {
-    Qa,
-    Sms,
-    Typing,
-    Editor
-  },
+  components: { Qa },
   props: {
     complete: Boolean,
     items: {
@@ -45,13 +39,21 @@ export default {
       currentPosition: null
     }
   },
+  updated () {
+    this.scrollToBottom()
+  },
+  created () {
+    if (this.items.length > 0) {
+      this.currentPosition = this.items[0].id
+    }
+  },
   methods: {
     loaded () {
       this.scrollToBottom()
     },
     next () {
       let nextId = null
-      let currentItem = this.getItem(this.currentPosition)
+      const currentItem = this.getItem(this.currentPosition)
 
       // Calculate next item
       if (typeof currentItem.next === 'function') {
@@ -96,7 +98,7 @@ export default {
       })
     },
     setResponses () {
-      let responses = []
+      const responses = []
       this.items.map((item) => {
         if (item.mode === 'done' && item.complete) {
           responses.push({ id: item.id, value: item.value })
@@ -111,14 +113,6 @@ export default {
         behavior: 'smooth'
       })
       // el.scrollTop = el.scrollHeight - el.clientHeight
-    }
-  },
-  updated () {
-    this.scrollToBottom()
-  },
-  created () {
-    if (this.items.length > 0) {
-      this.currentPosition = this.items[0].id
     }
   }
 }

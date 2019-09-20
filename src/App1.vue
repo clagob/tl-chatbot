@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="thinklife-conversation-1">
     <!-- <router-view/> -->
     <conversationbot />
   </div>
@@ -8,8 +8,8 @@
 <script>
 import Conversationbot from '@/components/Conversationbot'
 export default {
-  name: 'App',
-  components: {Conversationbot}
+  name: 'App1',
+  components: { Conversationbot }
 }
 </script>
 
