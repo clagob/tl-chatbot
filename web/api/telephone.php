@@ -4,7 +4,7 @@
 //////////////////////////////////////////////////////
 //
 // Global Telephone Validation
-// Version 15b
+// Version 19
 // https://idmp.gb.co.uk/wicket/bookmarkable/com.gb.sherlock.pages.documentation.IntegrationGuideValidationTelephone?8
 //
 
@@ -12,7 +12,7 @@
  // Settings
 ////////////////////////////////////////////////////
 
-$customerReference = 'Albany Park';
+$customerReference = 'Think Life';
 
 ////////////////////////////////////////////////////
 
@@ -79,10 +79,9 @@ if ( !empty($_POST['telephone']) ) {
     $client2 = new SoapClient($wsdl, $options);
   } catch (Exception $e) {
     $json_res = array();
-    $json_res['success'] = 'true'; // not stopping
+    $json_res['valid'] = 'true'; // not stopping
     $json_res['message'] = 'Create SOAP Client error:' .PHP_EOL. $e->getMessage();
     sendNotificationEmail($json_res['message']);
-    //echo $json_res['success'];
     echo json_encode($json_res);
     exit();
   }
@@ -95,10 +94,9 @@ if ( !empty($_POST['telephone']) ) {
   catch (Exception $e)
   {
     $json_res = array();
-    $json_res['success'] = 'true'; // not stopping
+    $json_res['valid'] = 'true'; // not stopping
     $json_res['message'] = 'SOAP method - Authenticate User ERROR:' .PHP_EOL. $e->getMessage();
     sendNotificationEmail($json_res['message']);
-    //echo $json_res['success'];
     echo json_encode($json_res);
     exit();
   }
@@ -124,7 +122,6 @@ if ( !empty($_POST['telephone']) ) {
       )
     );
     $validatePhone = $client2->ExecuteCapture($params);
-    //print_r($validatePhone);
     $transactionGuid = $validatePhone->transactionGuid;
     $telephone = $validatePhone->profileResponse->profileResponseDetails->validateResponse->response->input;
     $status = $validatePhone->profileResponse->profileResponseDetails->validateResponse->response->status;
@@ -132,7 +129,6 @@ if ( !empty($_POST['telephone']) ) {
     $validationCodes = items_to_array($validatePhone->profileResponse->profileResponseDetails->validateResponse->response->validationCodes->item);
     $ResultCode = $validationCodes['ResultCode'];
     $json_res = array();
-    //$json_res['soapResponse'] = print_r($validatePhone, true);
     $json_res['transactionGuid'] = $transactionGuid;
     $json_res['telephone'] = $telephone;
     $json_res['status'] = $status;
@@ -143,26 +139,25 @@ if ( !empty($_POST['telephone']) ) {
     // Response TRUE when is VALID or UNKNOWN (~~if not in the 300 range~~)
     //if( !empty($ResultCode) && ($ResultCode<300 || $ResultCode>=400) ) {
     if( !empty($validityFlag) && ($validityFlag=='VALID' || $validityFlag=='UNKNOWN') ) {
-       $json_res['success'] = 'true';
+       $json_res['valid'] = 'true';
     } else {
-       $json_res['success'] = 'false';
+       $json_res['valid'] = 'false';
     }
   }
   catch (Exception $e)
   {
     $json_res = array();
-    $json_res['success']  = 'true'; // not stopping
+    $json_res['valid']  = 'true'; // not stopping
     $json_res['message'] = 'SOAP method - Execute Capture ERROR:' .PHP_EOL. $e->getMessage();
     sendNotificationEmail($json_res['message']);
   }
 } else {
   // Parameter not provided - SPAM
   $json_res = array();
-  $json_res['success']  = 'true'; // not stopping
+  $json_res['valid']  = 'true'; // not stopping
   $json_res['message'] = 'POSSIBLE SPAM';
 }
 
-//echo $json_res['success'];
 echo json_encode($json_res);
 
 ////////////////////////////////////////////////////
