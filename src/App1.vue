@@ -1,7 +1,8 @@
 <template>
   <div id="thinklife-conversation-1">
     <!-- <router-view/> -->
-    <conversationbot />
+    {{ mcid }}
+    <conversationbot :mcid="mcid" />
   </div>
 </template>
 
@@ -9,7 +10,12 @@
 import Conversationbot from '@/components/Conversationbot'
 export default {
   name: 'App1',
-  components: { Conversationbot }
+  components: { Conversationbot },
+  data () {
+    return {
+      mcid: document.getElementById('thinklife-conversation-1').dataset.mcid
+    }
+  }
 }
 </script>
 
