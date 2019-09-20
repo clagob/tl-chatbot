@@ -7,7 +7,18 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npm run docker && npm run webpack-dev-server",
+    "docker": "docker-compose up -d",
+    "webpack-dev-server": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.config.dev.js",
+    "watch": "cross-env NODE_ENV=development webpack --watch --progress --config build/webpack.config.dev.js",
+    "dev2": "cross-env NODE_ENV=development webpack --progress --config build/webpack.config.dev.js",
+    "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.prod.js",
+    "rebuild": "",
+    "clean": "",
+    "start": "npm run dev",
+    "lint": "eslint --ext .js,.vue src",
+    "lint:fix": "eslint --ext .js,.vue src --fix",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
@@ -34,7 +45,40 @@
     "vue": "^2.6.10"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
     "autoprefixer": "^9.6.1",
-    "webpack": "^4.40.2"
+    "axios": "^0.19.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "cross-env": "^6.0.0",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.4.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-loader": "^3.0.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-vue": "^5.2.3",
+    "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^6.0.0",
+    "node-sass": "^4.12.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-url": "^8.0.0",
+    "rimraf": "^3.0.0",
+    "sass-loader": "^8.0.0",
+    "url-loader": "^2.1.0",
+    "vue-axios": "^2.1.4",
+    "vue-currency-filter": "^3.4.3",
+    "vue-loader": "^15.7.1",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1",
+    "webpack-merge": "^4.2.2"
   }
 }
