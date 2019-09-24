@@ -34,5 +34,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../assets/scss/conversation-sms";
+// @import "../../assets/scss/conversation-sms";
 </style>

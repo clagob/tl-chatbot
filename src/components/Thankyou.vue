@@ -45,8 +45,8 @@ export default {
       default: () => []
     },
     responses: {
-      type: Array,
-      default: () => []
+      type: Object,
+      default: () => {}
     }
   },
   computed: {

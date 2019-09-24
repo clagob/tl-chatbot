@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import config from '@/../config'
 import Qa from '@/components/Conversation/Qa'
 
 export default {
@@ -30,13 +31,19 @@ export default {
       default: () => []
     },
     responses: {
-      type: Array,
-      default: () => []
+      type: Object,
+      default: () => {}
+    },
+    mcid: {
+      type: String,
+      default: ''
     }
   },
   data () {
     return {
-      currentPosition: null
+      currentPosition: null,
+      lastPosition: null,
+      errorMessage: ''
     }
   },
   updated () {
@@ -62,13 +69,13 @@ export default {
         nextId = currentItem.next
       }
 
-      // to do afterNext() hook
-
       // Move to next item
       if (nextId === null) {
         // END
+        this.lastPosition = currentItem.id
         this.setResponses()
-        this.$emit('update:complete', true)
+        // Submit form now
+        this.submit()
       } else {
         // call the next step.
         this.currentPosition = nextId
@@ -98,26 +105,75 @@ export default {
       })
     },
     setResponses () {
-      const responses = []
+      const responses = {}
       this.items.map((item) => {
         if (item.mode === 'done' && item.complete) {
-          responses.push({ id: item.id, value: item.value })
+          responses[item.id] = item.value
         }
       })
       this.$emit('update:responses', responses)
     },
     scrollToBottom () {
-      const el = document.querySelector('.conversation')
-      el.scrollIntoView({
+      // const el = document.querySelector('.conversation')
+      this.$el.scrollIntoView({
         block: 'end',
         behavior: 'smooth'
       })
       // el.scrollTop = el.scrollHeight - el.clientHeight
+    },
+    submit () {
+      this.errorMessage = ''
+      var data = this.responses
+      data.mcid = this.mcid
+      console.log(data)
+      const apiUrl = config.IS_DEV ? config.dev.api.lunar : config.build.api.lunar
+      this.$http({
+        method: 'post',
+        url: apiUrl,
+        data: data
+      })
+        .then(response => {
+          console.log('Successful Lunar submission.')
+          console.log(response)
+          if (response.status === 200) {
+            if (response.data.status === '1') {
+              // SUCCESS
+              console.log('SUCCESS')
+              console.log(response.data)
+              this.$emit('update:complete', true)
+            } else {
+              // ERROR
+              console.error(response.data)
+              switch (data.status) {
+                case '-3': // Mandatory field not found
+                  this.errorMessage = 'Please check your data and try again. Mandatory field empty.'
+                  break
+                case '-5': // Invalid data type failed - Please ammend the fields
+                  this.errorMessage = 'Please check your data and try again. (Invalid data type failed: ' + data.message.replace('Invalid XML received: ', '') + ')'
+                  break
+                default: // Generic error / other error
+                  this.errorMessage = 'Please check your data and try again or contact us.'
+              }
+            }
+          } else {
+            this.errorMessage = 'OPS! An error occurred, and we are unable to proceed. Please contact us.'
+          }
+        })
+        .catch(error => {
+          console.error(error)
+          this.errorMessage = 'An error occurred, and we are unable to proceed. Please contact us.'
+        })
+        .finally(() => {
+          if (this.errorMessage !== null) {
+            // ERROR
+            this.$emit('update:error', this.errorMessage)
+          }
+        })
     }
   }
 }
 </script>
 
 <style lang="scss">
-@import "../../assets/scss/conversation";
+// @import "../../assets/scss/conversation";
 </style>

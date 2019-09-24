@@ -24,7 +24,6 @@
         {{ item.preAnswer }}
         <input
           ref="input"
-          v-model="item.value"
           :type="inputType"
           :placeholder="item.placeholder"
           :aria-placeholder="item.placeholder"
@@ -36,6 +35,8 @@
           :pattern="item.pattern"
           :required="item.required"
           :disabled="validating"
+          :value="item.value"
+          @input="inputEvent"
           @keypress.enter="formValidated"
         >
         {{ item.postAnswer }}
@@ -92,12 +93,6 @@ export default {
     },
     isInvalid () {
       // TO FINISH
-      //
-      // console.log(this.$refs.input)
-      // return this.$v.item.value.$anyError
-      // if (this.$refs.input === undefined) {
-      //   return false
-      // }
       return !this.$refs.input.validity.valid
     }
   },
@@ -108,9 +103,22 @@ export default {
       this.$emit('notSaved')
     }
   },
+  mounted () {
+    this.focusInput()
+  },
   methods: {
+    inputEvent (e) {
+      if (this.itemType === 'postcode') {
+        this.item.value = e.target.value.replace(/\s/g, '').toUpperCase()
+      } else {
+        this.item.value = e.target.value
+      }
+    },
     formValidated () {
       this.validated = true
+    },
+    focusInput () {
+      this.$refs.input.focus()
     },
     submit () {
       this.validating = true
@@ -128,7 +136,7 @@ export default {
       this.valid = false
       this.validating = false
       this.setInvalidForm()
-      this.$refs.input.focus()
+      this.focusInput()
       setTimeout(() => { this.$emit('scrollToBottom') }, 100)
       // this.$emit('scrollToBottom')
     },
@@ -156,7 +164,6 @@ export default {
           this.validateDate()
           break
         case 'postcode':
-          this.item.value = this.item.value.toUpperCase()
           this.validatePostcode()
           break
         case 'dob':
@@ -217,7 +224,7 @@ export default {
     },
     validateEmail () {
       if (!this.validRequired() ||
-          !this.validPattern() ||
+          !this.validPattern('Please specify a valid email address') ||
           !this.validGeneric()) {
         this.error()
       } else {
@@ -312,7 +319,6 @@ export default {
     //   return true
     // },
     checkTelephone (msg) {
-      // if (this.$refs.input.validity.valid) {
       this.validating = true
       const apiUrl = config.IS_DEV ? config.dev.api.telephone : config.build.api.telephone
       this.$http({
@@ -338,12 +344,9 @@ export default {
         .finally(() => {
           this.validating = false
         })
-      // }
     }
   }
 }
 </script>
 
-<style lang="scss">
-@import "../../assets/scss/conversation-editor";
-</style>
+<style lang="scss"></style>

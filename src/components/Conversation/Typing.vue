@@ -14,5 +14,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../assets/scss/conversation-typing";
+// @import "../../assets/scss/conversation-typing";
 </style>

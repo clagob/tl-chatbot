@@ -231,5 +231,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../assets/scss/conversation-qa";
+// @import "../../assets/scss/conversation-qa";
 </style>
