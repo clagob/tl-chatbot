@@ -14,7 +14,7 @@
     "dev2": "cross-env NODE_ENV=development webpack --progress --config build/webpack.config.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.prod.js",
     "rebuild": "",
-    "clean": "",
+    "clean": "node build/clean.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
@@ -80,5 +80,6 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.1",
     "webpack-merge": "^4.2.2"
-  }
+  },
+  "sideEffects": false
 }
