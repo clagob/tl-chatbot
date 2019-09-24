@@ -3,6 +3,16 @@
 // LUNAR Media integration - SOAP Web Service
 ////////////////////////////////////////////////////
 //
+// Updated: 22/09/2019
+//
+// This version will get the following info from the cookies if available
+// - utm_source
+// - utm_medium
+// - utm_campaign
+// - utm_term
+// - incid
+//
+//
 //  FIELD LIST and VALIDATION:
 //  https://crmtest.lunarmedia.co.uk/net/webservices/fieldlookup.aspx?MediaCampaignID=10339
 //  https://crm.lunarmedia.co.uk/net/webservices/fieldlookup.aspx?MediaCampaignID=12129 [AP]
@@ -31,7 +41,7 @@ try {
   // BLOCK EXTERNAL CONNECTIONS - ANTI HACKS
   // The API can be used just from the same domain only
   if ( notRequestedByTheSameDomain() ) {
-    header($_SERVER["SERVER_PROTOCOL"]." 403 Permnission Error");
+    header($_SERVER["SERVER_PROTOCOL"]." 403 Permission Error");
     $json_res = array();
     $json_res['status']  = '-403';
     $json_res['message'] = 'ERROR - no permissions';
@@ -39,13 +49,18 @@ try {
     exit();
   }
 
+  // Get request Input
+  $data = json_decode(file_get_contents("php://input"), TRUE);
+  if (count($data)==0) {
+    $data = $_POST;
+  }
 
   // Set all the possible fields to avoid errors
   $_FORM = array();
   $_FIELDS = array(
-    'client-ref',
+    // 'client-ref',
     'mcid',
-    'k',
+    // 'k',
     'amount',
     'product-term',
     'policy-cover-type',
@@ -64,13 +79,12 @@ try {
     'your-day',
     'your-time',
     'cover-for',
-    'notes',
-    'is-lunar-health'
+    'notes'
   );
-  if( !empty($_POST) ){
+  if( !empty($data) ){
     foreach ($_FIELDS as $key) {
-      if (isset($_POST[$key])) {
-        $_FORM[$key] = $_POST[$key];
+      if (isset($data[$key])) {
+        $_FORM[$key] = $data[$key];
       } else {
         $_FORM[$key] = '';
       }
@@ -89,14 +103,29 @@ try {
   }
 
 
+  ////////////////////////////////////////////////////////
+
+  // GOOGLE UTM TRACKING
+  $client_ref = 'web-none';
+  $keywords   = 'none'; // Client source ref
+
+  $client_ref = getCookie('utm_source') ?  getCookie('utm_source') . ' - ' . getCookie('utm_medium') . ' - ' . getCookie('utm_campaign') : 'web-none';
+  $keywords   = getCookie('utm_term', 'none');
+
+  // TRACKING ID by INCHORA
+  $incid = getCookie('incid', '');
+
+  ////////////////////////////////////////////////////////
+
+
   // Main
-  if ( !empty($_POST) && empty($_POST['password']) )  // "password" is an honeypot - ANTI SPAM - it has to be empty
+  if ( TRUE || !empty($_POST) && empty($_POST['password']) )  // "password" is an honeypot - ANTI SPAM - it has to be empty
   {
-    $is_lunar_heath   = $_FORM['is-lunar-health'] ? true : false;
+    // $is_lunar_heath   = $_FORM['is-lunar-health'] ? true : false;
     // from the FORM
     $MediaCampaignID  = $_FORM['mcid'];
-    $ClientDataSource = substr(preg_replace('/([^a-z0-9 -])/', '-', strtolower(urldecode($_FORM['k']))), 0, 50); //keywords if available
-    $ClientReference  = substr(preg_replace('/([^a-zA-Z0-9_ -])/', '-', urldecode($_FORM['client-ref'])), 0, 50);
+    $ClientDataSource = substr(preg_replace('/([^a-z0-9 -])/', '-', strtolower(urldecode($keywords))), 0, 50); //keywords if available
+    $ClientReference  = substr(preg_replace('/([^a-zA-Z0-9_ -])/', '-', urldecode($client_ref)), 0, 50);
     $Amount           = $_FORM['amount']?$_FORM['amount']:'0';
     $ProductTerm      = intval($_FORM['product-term']);
     $PolicyCoverType  = $_FORM['policy-cover-type'];
@@ -151,9 +180,6 @@ try {
 
     // Campaigns are set in different account that have different validations.
     $ProductType = 'Life Insurance';
-    if ( $is_lunar_heath ) {
-      $ProductType = 'Health Insurance';
-    }
     // just for PMI - $is_lunar_heath
     if ( !empty($cover_for) ) {
       $Notes .= PHP_EOL.'Cover for: ' . $cover_for;
@@ -164,26 +190,11 @@ try {
     $Notes .= PHP_EOL;
     $Notes .= PHP_EOL.'Security Info:';
     $Notes .= PHP_EOL.'==============';
-    $Notes .= PHP_EOL.'User Agent: '.$_SERVER[HTTP_USER_AGENT];
-    $Notes .= PHP_EOL.'Remote IP: '.$_SERVER[REMOTE_ADDR];
-    $Notes .= PHP_EOL.'Request timestamp: '.$_SERVER[REQUEST_TIME_FLOAT];
+    $Notes .= PHP_EOL.'User Agent: '.@$_SERVER[HTTP_USER_AGENT];
+    $Notes .= PHP_EOL.'Remote IP: '.@$_SERVER[REMOTE_ADDR];
+    $Notes .= PHP_EOL.'Request timestamp: '.@$_SERVER[REQUEST_TIME_FLOAT];
 
     ////////////////////////////////////////////////////////
-
-    // TRACKING ID by CUBED.ai
-    $vid = '';
-    if ( isset($_COOKIE['vscr_vid']) && !empty($_COOKIE['vscr_vid']) ) {
-      $vid = $_COOKIE['vscr_vid'];
-    }
-
-    // TRACKING ID by INCHORA
-    $incid = '';
-    if ( isset($_COOKIE['incid']) && !empty($_COOKIE['incid']) ) {
-      $incid = $_COOKIE['incid'];
-    }
-
-    ////////////////////////////////////////////////////////
-
 
     $xml_post_string = '<?xml version="1.0" encoding="utf-8"?>
   <soap:Envelope xmlns:soap="https://www.w3.org/2001/12/soap-envelope">
@@ -215,13 +226,12 @@ try {
         <BestContactDate>'.$BestContactDate.'</BestContactDate>
         <Notes>'.$Notes.'</Notes>
         <SecondApplicant>'.$SecondApplicant.'</SecondApplicant>
-        <vid>'.$vid.'</vid>
         <incid>'.$incid.'</incid>
       </executeSoap>
     </soap:Body>
   </soap:Envelope>';
 
-    //print($xml_post_string.PHP_EOL.PHP_EOL);
+    // print($xml_post_string.PHP_EOL.PHP_EOL);
 
     // connection
     $headers = array(
@@ -314,4 +324,12 @@ try {
 
 function notRequestedByTheSameDomain() {
   return (strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === false);
+}
+
+
+function getCookie($name, $default='') {
+  if ( isset($_COOKIE[$name]) && !empty($_COOKIE[$name]) ) {
+    return $_COOKIE[$name];
+  }
+  return $default;
 }
