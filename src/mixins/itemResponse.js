@@ -6,6 +6,9 @@ export default {
     isYes (itemId) {
       return this.getItem(itemId).value === 'yes'
     },
+    isValue (itemId, value) {
+      return this.getItem(itemId).value === value
+    },
     ageToDbDate (age) {
       // Age to yyyy-mm-dd
       age = parseInt(age) || 0

@@ -71,6 +71,7 @@ try {
     'your-telephone',
     'your-email',
     'your-dob',
+    'your-smoke-status',
     'p-title',
     'p-firstname',
     'p-lastname',
@@ -137,6 +138,7 @@ try {
     $App1HomeTelephone = $_FORM['your-telephone'];
     $App1EmailAddress = $_FORM['your-email'];
     $App1DOB          = $_FORM['your-dob']?$_FORM['your-dob']:'01/01/1900';
+    $App1Smoker       = $_FORM['your-smoke-status'];
     $App2Title        = $_FORM['p-title'];
     $App2FirstName    = $_FORM['p-firstname'];
     $App2Surname      = $_FORM['p-lastname'];
@@ -217,6 +219,7 @@ try {
         <App1FirstName>'.$App1FirstName.'</App1FirstName>
         <App1Surname>'.$App1Surname.'</App1Surname>
         <App1DOB>'.$App1DOB.'</App1DOB>
+        <App1Smoker>'.$App1Smoker.'</App1Smoker>
         <AddressLine1></AddressLine1>
         <AddressPostCode></AddressPostCode>
         <App2Title>'.$App2Title.'</App2Title>

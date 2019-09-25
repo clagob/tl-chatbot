@@ -25,15 +25,15 @@ import Qa from '@/components/Conversation/Qa'
 export default {
   components: { Qa },
   props: {
-    complete: Boolean,
+    // complete: Boolean,
     items: {
       type: Array,
       default: () => []
     },
-    responses: {
-      type: Object,
-      default: () => {}
-    },
+    // responses: {
+    //   type: Object,
+    //   default: () => {}
+    // },
     mcid: {
       type: String,
       default: ''
@@ -41,6 +41,7 @@ export default {
   },
   data () {
     return {
+      responses: {},
       currentPosition: null,
       lastPosition: null,
       errorMessage: ''
@@ -74,6 +75,7 @@ export default {
         // END
         this.lastPosition = currentItem.id
         this.setResponses()
+        this.$forceUpdate()
         // Submit form now
         this.submit()
       } else {
@@ -111,7 +113,9 @@ export default {
           responses[item.id] = item.value
         }
       })
+      this.responses = responses
       this.$emit('update:responses', responses)
+      // this.$nextTick()
     },
     scrollToBottom () {
       // const el = document.querySelector('.conversation')
@@ -140,7 +144,7 @@ export default {
               // SUCCESS
               console.log('SUCCESS')
               console.log(response.data)
-              this.$emit('update:complete', true)
+              this.$emit('success')
             } else {
               // ERROR
               console.error(response.data)
@@ -175,5 +179,4 @@ export default {
 </script>
 
 <style lang="scss">
-// @import "../../assets/scss/conversation";
 </style>
