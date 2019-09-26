@@ -127,7 +127,7 @@ try {
     $MediaCampaignID  = $_FORM['mcid'];
     $ClientDataSource = substr(preg_replace('/([^a-z0-9 -])/', '-', strtolower(urldecode($keywords))), 0, 50); //keywords if available
     $ClientReference  = substr(preg_replace('/([^a-zA-Z0-9_ -])/', '-', urldecode($client_ref)), 0, 50);
-    $Amount           = $_FORM['amount']?$_FORM['amount']:'0';
+    $Amount           = intval($_FORM['amount']);
     $ProductTerm      = intval($_FORM['product-term']);
     $PolicyCoverType  = $_FORM['policy-cover-type'];
     $quote_for        = $_FORM['quote-for'];  // not to import - just check
