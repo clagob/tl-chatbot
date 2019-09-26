@@ -8,3 +8,8 @@
     overflow-y: auto
   }
 }
+.conversation-error {
+  padding: .5rem;
+  background: $conversarion-error-bg;
+  color: $conversarion-error-txt;
+}

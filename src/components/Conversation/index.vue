@@ -1,6 +1,6 @@
 
 <template>
-  <div class="conversation">
+  <section class="conversation">
     <qa
       v-for="(item, index) in items"
       :key="item.id"
@@ -15,7 +15,13 @@
     <h2 v-if="items === null || items.length === 0">
       Sorry there is nothing that I have to say. Bye!
     </h2>
-  </div>
+    <div
+      v-if="errorMessage"
+      class="conversation-error"
+    >
+      {{ errorMessage }}
+    </div>
+  </section>
 </template>
 
 <script>
@@ -25,18 +31,17 @@ import Qa from '@/components/Conversation/Qa'
 export default {
   components: { Qa },
   props: {
-    // complete: Boolean,
     items: {
       type: Array,
       default: () => []
     },
-    // responses: {
-    //   type: Object,
-    //   default: () => {}
-    // },
     mcid: {
       type: String,
       default: ''
+    },
+    redirect: {
+      type: String,
+      default: '/thank-you/'
     }
   },
   data () {
@@ -75,7 +80,7 @@ export default {
         // END
         this.lastPosition = currentItem.id
         this.setResponses()
-        this.$forceUpdate()
+        // this.$forceUpdate()
         // Submit form now
         this.submit()
       } else {
@@ -114,8 +119,6 @@ export default {
         }
       })
       this.responses = responses
-      this.$emit('update:responses', responses)
-      // this.$nextTick()
     },
     scrollToBottom () {
       // const el = document.querySelector('.conversation')
@@ -144,7 +147,7 @@ export default {
               // SUCCESS
               console.log('SUCCESS')
               console.log(response.data)
-              this.$emit('success')
+              this.success()
             } else {
               // ERROR
               console.error(response.data)
@@ -168,15 +171,22 @@ export default {
           this.errorMessage = 'An error occurred, and we are unable to proceed. Please contact us.'
         })
         .finally(() => {
-          if (this.errorMessage !== null) {
-            // ERROR
-            this.$emit('update:error', this.errorMessage)
-          }
+          // if (this.errorMessage !== null) {
+          //   // ERROR
+          //   // this.$emit('update:error', this.errorMessage)
+          // }
         })
+    },
+    success () {
+      // SAVE responses on session storage
+      sessionStorage.setItem('conversation', JSON.stringify(this.responses))
+      // Redirect to
+      if (/^https?:\/\//i.test(this.redirect)) {
+        window.location = this.redirect + '?result=success'
+      } else {
+        window.location.pathname = this.redirect + '?result=success'
+      }
     }
   }
 }
 </script>
-
-<style lang="scss">
-</style>

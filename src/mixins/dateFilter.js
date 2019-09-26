@@ -1,17 +1,17 @@
 export default {
   filters: {
-    dateInput: function (value) {
-      // dd/mm/yyyy to yyyy-mm-dd
-      if (!value) return ''
-      value = value.toString()
-      const x = value.split('/')
-      const d = new Date(x[2] + '-' + x[1] + '-' + x[0])
-      if (d.toString() !== 'Invalid Date') {
-        return x[2] + '-' + x[1] + '-' + x[0]
-      } else {
-        return ''
-      }
-    },
+    // dateInput: function (value) {
+    //   // dd/mm/yyyy to yyyy-mm-dd
+    //   if (!value) return ''
+    //   value = value.toString()
+    //   const x = value.split('/')
+    //   const d = new Date(x[2] + '-' + x[1] + '-' + x[0])
+    //   if (d.toString() !== 'Invalid Date') {
+    //     return x[2] + '-' + x[1] + '-' + x[0]
+    //   } else {
+    //     return ''
+    //   }
+    // },
     dateFormat: function (value) {
       // yyyy-mm-dd to dd/mm/yyyy
       if (!value) return ''

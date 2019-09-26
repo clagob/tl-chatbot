@@ -19,7 +19,6 @@
     <sms
       v-if="!isTyping && !isMessage"
       out
-      :no="showEditor"
       :modify="isDone"
     >
       <p
@@ -82,6 +81,9 @@ export default {
   },
   computed: {
     questions () {
+      if (typeof this.item.question === 'function') {
+        return [].concat(this.item.question())
+      }
       return [].concat(this.item.question)
     },
     answer () {
@@ -229,7 +231,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-// @import "../../assets/scss/conversation-qa";
-</style>

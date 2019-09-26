@@ -27,8 +27,8 @@
       margin-bottom: 1rem;
       padding: 1rem;
       border-radius: $sms-radius $sms-radius $sms-radius / 10 $sms-radius;
-      background: red;
-      color: white;
+      background: $sms-editor-error-bg;
+      color: $sms-editor-error-txt;
     }
   }
 
@@ -74,10 +74,9 @@
       border-color: $sms-in-bg;
       background: $sms-options-bg;
       color: $sms-options-txt;
-      // -webkit-appearance: none;
-      // -moz-appearance: none;
-      // -webkit-transform: translateZ(0);
-      // z-index: 1000;
+      &:focus {
+        outline: none;
+      }
 
       &::placeholder {
         color: $sms-editor-input-placeholder;

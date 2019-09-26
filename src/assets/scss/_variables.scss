@@ -34,3 +34,8 @@ $sms-editor-button-padding-x:  calc( #{$sms-editor-input-padding-x} + #{$sms-pad
 $sms-editor-button-padding-y:  calc( #{$sms-editor-input-padding-y} + #{$sms-padding-y} );
 $sms-editor-button-bg-hover:  black;
 $sms-editor-button-txt-hover: white;
+$sms-editor-error-bg:         $red;
+$sms-editor-error-txt:        white;
+
+$conversarion-error-bg:       $red;
+$conversarion-error-txt:      white;
