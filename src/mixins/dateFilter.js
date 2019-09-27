@@ -23,20 +23,22 @@ export default {
       } else {
         return ''
       }
-    },
-    dateTimeFormat: function (value) {
-      // yyyy-mm-dd hh:mm:ss to dd/mm/yyyy hh:mm:ss
-      if (!value) return ''
-      value = value.toString()
-      const x = value.split(' ')
-      if (x.length > 1) {
-        return this.$options.filters.dateFormat(x[0]) + ' ' + x[1]
-      } else {
-        return value
-      }
     }
-  },
-  beforeCreate () {
-    this.$options.filters.dateTimeFormat = this.$options.filters.dateTimeFormat.bind(this)
+    // ,
+    // dateTimeFormat: function (value) {
+    //   // yyyy-mm-dd hh:mm:ss to dd/mm/yyyy hh:mm:ss
+    //   if (!value) return ''
+    //   value = value.toString()
+    //   const x = value.split(' ')
+    //   if (x.length > 1) {
+    //     return this.$options.filters.dateFormat(x[0]) + ' ' + x[1]
+    //   } else {
+    //     return value
+    //   }
+    // }
   }
+  // ,
+  // beforeCreate () {
+  //   this.$options.filters.dateTimeFormat = this.$options.filters.dateTimeFormat.bind(this)
+  // }
 }

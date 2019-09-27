@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import config from '@/../config'
+import { API } from '@/../config'
 export default {
   props: {
     item: {
@@ -320,7 +320,7 @@ export default {
     // },
     checkTelephone (msg) {
       this.validating = true
-      const apiUrl = config.IS_DEV ? config.dev.api.telephone : config.build.api.telephone
+      const apiUrl = API.telephone
       this.$http({
         method: 'post',
         url: apiUrl,

@@ -7,12 +7,13 @@ module.exports = {
   ENV: process.env.NODE_ENV || 'development',
   IS_DEV: (process.env.NODE_ENV || 'development') === 'development',
 
+  API: {
+    telephone: '/api/telephone.php',
+    lunar: '/api/lunar.php'
+  },
+
   dev: {
     distPath: path.resolve(__dirname, '../test/dist'),
-    api: {
-      telephone: '/api/telephone.php',
-      lunar: '/api/lunar.php'
-    },
     server: {
       proxy: {
         '/api': 'http://localhost:9000'
@@ -21,11 +22,7 @@ module.exports = {
   },
 
   build: {
-    distPath: path.resolve(__dirname, '../web/dist'),
-    api: {
-      telephone: '/api/telephone.php',
-      lunar: '/api/lunar.php'
-    }
+    distPath: path.resolve(__dirname, '../web/dist')
   }
 
 }

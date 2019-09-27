@@ -1,4 +1,3 @@
-/* eslint-disable vue/no-use-v-if-with-v-for */
 <template>
   <div
     v-if="isNotHidden && isRealQA"
@@ -86,14 +85,28 @@ export default {
       }
       return [].concat(this.item.question)
     },
+    preAnswer () {
+      if (this.item.preAnswer) {
+        return this.item.preAnswer
+      } else {
+        return ''
+      }
+    },
+    postAnswer () {
+      if (this.item.postAnswer) {
+        return this.item.postAnswer
+      } else {
+        return ''
+      }
+    },
     answer () {
       switch (this.item.type) {
         case 'options':
           return this.item.options[this.item.value]
         case 'date':
-          return this.$options.filters.dateFormat(this.item.value)
+          return this.preAnswer + this.$options.filters.dateFormat(this.item.value) + this.postAnswer
         default:
-          return this.item.value
+          return this.preAnswer + this.item.value + this.postAnswer
       }
     },
     value () {

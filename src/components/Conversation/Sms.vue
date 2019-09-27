@@ -19,7 +19,7 @@ export default {
   computed: {
     classNames () {
       const elemClasses = []
-      elemClasses.push('sms')
+      elemClasses.push('conversation-sms')
       elemClasses.push(this.out ? 'out' : 'in')
       if (this.modify) elemClasses.push('modify')
       return elemClasses.join(' ')

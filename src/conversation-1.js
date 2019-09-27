@@ -3,18 +3,11 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import App1 from './App1'
-// import VueCurrencyFilter from 'vue-currency-filter'
 
 Vue.use(VueAxios, axios)
-
-// Vue.use(VueCurrencyFilter, {
-//   symbol: '£',
-//   thousandsSeparator: '.',
-//   fractionCount: 2,
-//   fractionSeparator: ',',
-//   symbolPosition: 'front',
-//   symbolSpacing: true
-// })
+if (process.env.NODE_ENV === 'production') {
+  Vue.axios.defaults.baseURL = '//bot.think-life.uk'
+}
 
 /* eslint-disable no-new */
 new Vue({

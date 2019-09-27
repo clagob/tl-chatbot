@@ -1,6 +1,18 @@
-@import "variables";
-@import "conversation";
-@import "conversation-qa";
-@import "conversation-sms";
-@import "conversation-typing";
-@import "conversation-editor";
+.thinklife-conversation {
+  font-family: sans-serif;
+  font-size: 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &,
+  *,
+  :after,
+  :before {
+    box-sizing: border-box;
+  }
+  @import "variables";
+  @import "conversation";
+  @import "conversation-qa";
+  @import "conversation-sms";
+  @import "conversation-typing";
+  @import "conversation-editor";
+}

@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const config = require('../config')
 // import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
-const PUBLIC_PATH = '/'
+const PUBLIC_PATH = ''
 
 let DIST = config.build.distPath
 if (config.IS_DEV) {

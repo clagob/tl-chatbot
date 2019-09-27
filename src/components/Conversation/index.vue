@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import config from '@/../config'
+import { API } from '@/../config'
 import Qa from '@/components/Conversation/Qa'
 
 export default {
@@ -130,14 +130,15 @@ export default {
     },
     submit () {
       this.errorMessage = ''
-      var data = this.responses
-      data.mcid = this.mcid
-      console.log(data)
-      const apiUrl = config.IS_DEV ? config.dev.api.lunar : config.build.api.lunar
+      var params = this.responses
+      params.mcid = this.mcid
+      // console.log(params)
       this.$http({
         method: 'post',
-        url: apiUrl,
-        data: data
+        url: API.lunar,
+        data: Object.keys(params).map((key) => {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+        }).join('&')
       })
         .then(response => {
           console.log('Successful Lunar submission.')
@@ -151,12 +152,12 @@ export default {
             } else {
               // ERROR
               console.error(response.data)
-              switch (data.status) {
+              switch (response.data.status) {
                 case '-3': // Mandatory field not found
                   this.errorMessage = 'Please check your data and try again. Mandatory field empty.'
                   break
                 case '-5': // Invalid data type failed - Please ammend the fields
-                  this.errorMessage = 'Please check your data and try again. (Invalid data type failed: ' + data.message.replace('Invalid XML received: ', '') + ')'
+                  this.errorMessage = 'Please check your data and try again. (Invalid data type failed: ' + response.data.message.replace('Invalid XML received: ', '') + ')'
                   break
                 default: // Generic error / other error
                   this.errorMessage = 'Please check your data and try again or contact us.'
