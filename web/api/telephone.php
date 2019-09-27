@@ -8,6 +8,8 @@
 // https://idmp.gb.co.uk/wicket/bookmarkable/com.gb.sherlock.pages.documentation.IntegrationGuideValidationTelephone?8
 //
 
+include 'auth.php';
+
   //
  // Settings
 ////////////////////////////////////////////////////
@@ -53,21 +55,6 @@ if ( isset($_ENV['GBUK-emailNotification']) ) {
 }
 
 ////////////////////////////////////////////////////
-
-// Response Init
-$json_res = array();
-header('Content-Type: application/json');
-
-// BLOCK EXTERNAL CONNECTIONS - ANTI HACKS
-// The API can be used just from the same domain only
-if ( notRequestedByTheSameDomain() ) {
-  header($_SERVER["SERVER_PROTOCOL"]." 403 Permission Error");
-  $json_res = array();
-  $json_res['status']  = 'false';
-  $json_res['message'] = 'ERROR - no permissions';
-  echo json_encode($json_res);
-  exit();
-}
 
 if ( !empty($_POST['telephone']) ) {
   $telephone = $_POST['telephone'];
@@ -180,10 +167,4 @@ function items_to_array($items) {
     }
   }
   return $result;
-}
-
-////////////////////////////////////////////////////
-
-function notRequestedByTheSameDomain() {
-  return (strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === false);
 }

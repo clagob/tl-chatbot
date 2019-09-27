@@ -18,6 +18,9 @@
 //  https://crm.lunarmedia.co.uk/net/webservices/fieldlookup.aspx?MediaCampaignID=12129 [AP]
 //
 
+include 'auth.php';
+
+
 //
 // Settings
 ////////////////////////////////////////////////////
@@ -28,30 +31,31 @@
 $soap_url = 'http://crm.lunarmedia.co.uk/net/webservices/inbound/soappost.aspx';
 
 // Notification in case of error
-$email_notification = "webservices@inchora.com, michael.manning@betterprotect.co.uk";
+// $email_notification = "webservices@inchora.com, michael.manning@betterprotect.co.uk";
+$email_notification = "webservices@inchora.com";
 
 ////////////////////////////////////////////////////
 
 try {
 
-  // Response Init
-  header('Content-Type: application/json');
-  $json_res = array();
+  // // Response Init
+  // header('Content-Type: application/json');
+  // $json_res = array();
 
-  // BLOCK EXTERNAL CONNECTIONS - ANTI HACKS
-  // The API can be used just from the same domain only
-  if ( notRequestedByTheSameDomain() ) {
-    header($_SERVER["SERVER_PROTOCOL"]." 403 Permission Error");
-    $json_res = array();
-    $json_res['status']  = '-403';
-    $json_res['message'] = 'ERROR - no permissions';
-    echo json_encode($json_res);
-    exit();
-  }
+  // // BLOCK EXTERNAL CONNECTIONS - ANTI HACKS
+  // // The API can be used just from the same domain only
+  // if ( notRequestedByTheSameDomain() ) {
+  //   header($_SERVER["SERVER_PROTOCOL"]." 403 Permission Error");
+  //   $json_res = array();
+  //   $json_res['status']  = '-403';
+  //   $json_res['message'] = 'ERROR - no permissions';
+  //   echo json_encode($json_res);
+  //   exit();
+  // }
 
   // Get request Input
   $data = json_decode(file_get_contents("php://input"), TRUE);
-  if (count($data)==0) {
+   if (count($data)==0) {
     $data = $_POST;
   }
 
@@ -72,6 +76,7 @@ try {
     'your-email',
     'your-dob',
     'your-smoke-status',
+    'your-postcode',
     'p-title',
     'p-firstname',
     'p-lastname',
@@ -139,6 +144,7 @@ try {
     $App1EmailAddress = $_FORM['your-email'];
     $App1DOB          = $_FORM['your-dob']?$_FORM['your-dob']:'01/01/1900';
     $App1Smoker       = $_FORM['your-smoke-status'];
+    $AddressPostCode  = $_FORM['your-postcode'];
     $App2Title        = $_FORM['p-title'];
     $App2FirstName    = $_FORM['p-firstname'];
     $App2Surname      = $_FORM['p-lastname'];
@@ -221,7 +227,7 @@ try {
         <App1DOB>'.$App1DOB.'</App1DOB>
         <App1Smoker>'.$App1Smoker.'</App1Smoker>
         <AddressLine1></AddressLine1>
-        <AddressPostCode></AddressPostCode>
+        <AddressPostCode>'.$AddressPostCode.'</AddressPostCode>
         <App2Title>'.$App2Title.'</App2Title>
         <App2FirstName>'.$App2FirstName.'</App2FirstName>
         <App2Surname>'.$App2Surname.'</App2Surname>
@@ -324,11 +330,6 @@ try {
 }
 
 ////////////////////////////////////////////////////
-
-function notRequestedByTheSameDomain() {
-  return (strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === false);
-}
-
 
 function getCookie($name, $default='') {
   if ( isset($_COOKIE[$name]) && !empty($_COOKIE[$name]) ) {
