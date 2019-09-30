@@ -57,8 +57,9 @@
       overflow: hidden;
       label {
         display: block;
+        margin: 0;
         padding: $sms-padding-y * 2 $sms-padding-x;
-        border-bottom: 1px solid $sms-out-bg;
+        border-bottom: 1px solid $sms-out-options-border;
         background: $sms-options-bg;
         color: $sms-options-txt;
         &:last-child {

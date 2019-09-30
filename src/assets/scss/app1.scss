@@ -11,8 +11,9 @@
   }
   @import "variables";
   @import "conversation";
-  @import "conversation-qa";
-  @import "conversation-sms";
-  @import "conversation-typing";
-  @import "conversation-editor";
+  @import "qa";
+  @import "sms";
+  @import "typing";
+  @import "spinner";
+  @import "editor";
 }

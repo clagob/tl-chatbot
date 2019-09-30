@@ -47,7 +47,10 @@
         @click="formValidated"
       >
         <span v-if="!validating">GO</span>
-        <span v-if="validating">...</span>
+        <span
+          v-if="validating"
+          class="spinner"
+        ><span>...</span></span>
       </button>
     </form>
   </section>

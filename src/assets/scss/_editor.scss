@@ -50,7 +50,7 @@
     }
 
     &.invalid {
-      animation-name: shakeError;
+      animation-name: conversation-shake;
       animation-duration: .6s;
       animation-timing-function: ease-in-out;
     }
@@ -114,7 +114,7 @@ input.invalid {
   box-shadow: 0 0 .5rem rgba($red, .6);
 }
 
-@keyframes shakeError {
+@keyframes conversation-shake {
   0% {
     transform: translateX(0);
   }
@@ -139,4 +139,8 @@ input.invalid {
   100% {
     transform: translateX(0);
   }
+}
+
+@keyframes conversation-spinner {
+  to { transform: rotate(360deg); }
 }
