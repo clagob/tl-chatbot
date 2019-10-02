@@ -2,14 +2,13 @@
 
 .conversation {
   position: relative;
-  // background-color: white;
-  padding: 1rem;
-  // &.conversation-embeded {
-  //   overflow-y: auto
+  // padding: 1rem;
+  // @media (max-width:767px) {
   // }
-}
-.conversation-error {
-  padding: .5rem;
-  background: $conversarion-error-bg;
-  color: $conversarion-error-txt;
+
+  .conversation-error {
+    padding: .5rem;
+    background: $conversarion-error-bg;
+    color: $conversarion-error-txt;
+  }
 }

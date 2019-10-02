@@ -2,7 +2,7 @@
 
 $blue:        #327fe9;
 $lightGrey:   #e6e7ed;
-$gradiant:  linear-gradient(to bottom, #77a7e5 0%,#327fe9 80%);
+$gradiant:  linear-gradient(to bottom, #77a7e5 30%,#327fe9 100%);
 
 $red:         #FF0000;
 
@@ -20,6 +20,7 @@ $sms-out-txt:     white;
 $sms-options-bg:  white;
 $sms-options-txt: black;
 $sms-out-options-border: $lightGrey;
+$sms-edit-txt:    #6c757d;
 
 $sms-editor-bg:               $sms-out-bg;
 $sms-editor-txt:              $sms-out-txt;

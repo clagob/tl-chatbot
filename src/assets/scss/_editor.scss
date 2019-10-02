@@ -74,6 +74,20 @@
       border-color: $sms-in-bg;
       background: $sms-options-bg;
       color: $sms-options-txt;
+      &[type=number],
+      &[type=tel],
+      &[type=search],
+      &[type=url],
+      &[type=datetime],
+      &[type=date],
+      &[type=week],
+      &[type=month],
+      &[type=email],
+      &[type=text] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
       &:focus {
         outline: none;
       }
