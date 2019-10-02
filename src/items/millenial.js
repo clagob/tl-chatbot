@@ -186,7 +186,7 @@ export default {
           question: 'Brilliant. Just say how much',
           type: 'number',
           min: 10000,
-          max: 10000000,
+          max: 1000000,
           required: true,
           preAnswer: 'I’d like £ ',
           placeholder: '######',
