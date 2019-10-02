@@ -7,18 +7,19 @@
     "test": "test"
   },
   "scripts": {
-    "dev": "npm run docker && npm run webpack-dev-server",
     "docker": "docker-compose up -d",
+    "dev": "npm run docker && npm run webpack-dev-server",
+    "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.prod.js",
+    "rebuild": "npm run docker &&  npm run build",
+    "clean": "node build/clean.js",
     "webpack-dev-server": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.config.dev.js",
     "watch": "cross-env NODE_ENV=development webpack --watch --progress --config build/webpack.config.dev.js",
-    "dev2": "cross-env NODE_ENV=development webpack --progress --config build/webpack.config.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.prod.js",
-    "rebuild": "",
-    "clean": "node build/clean.js",
+    "dev-to-test": "cross-env NODE_ENV=development webpack --progress --config build/webpack.config.dev.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
-    "webpack": "webpack"
+    "docker:stop": "docker-compose stop",
+    "docker:down": "docker-compose down"
   },
   "repository": {
     "type": "git",

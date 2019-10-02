@@ -2,8 +2,14 @@
 
 Project for leads generation commissioned from the Prince of Gambia.
 
+The project create a Web APP that looks like a converastion but behind the scene is a web form. At the end of the conversation the form is submitted to the CRM LUNAR and the user is redirect to an 'external' `thank-you` page.
 
-## Docker - Development Enviroment
+The APP can work as single page or be embedded in an existing web page, simply adding an HTML tag and injecting an external JavaScript. This will read and replace the HTML tag with a complex HTML structure (conversation widget) that is controlled and styled by the JavaScript.
+
+We can have many APPs with different questions (`/src/items/..`) or different style.
+
+
+## Development Enviroment
 
 ### TEST ENV
 
@@ -33,13 +39,7 @@ If you already have the following tools installed, skip this section.
 
 Install it now. (https://nodejs.org)
 
-<!-- ### GULP CLI 2.0+
-
-```
-npm install --global gulp-cli
-``` -->
-
-### Docker (for preview & testing)
+### Docker (for API)
 
 Be sure that the `docker` & `docker-compose` are installed.
 
@@ -63,6 +63,19 @@ npm i
 
 You can use this repo in different way. Here the list for an easy understanding.
 
+### Developer mode
+
+To expand and add functionalities, please run this command and edit in the `/src/` folder. The code will be rebuilt on fly and automatically refreshed on the browser (`http://localhost:8081/conversation-#.html`). This command also start the docker server where is hosted the API (on port 9000).
+
+```
+npm run dev 
+```
+
+or 
+
+```
+npm run start 
+```
 
 ### Build the package
 
@@ -71,16 +84,6 @@ Build all the distribution parts of the package (`/dist/` & `wp-content/themes/{
 ```
 npm run build
 ```
-
-
-### Developer mode
-
-To expand and add functionalities, please run this command and edit in the `/src/` folder. The code will be rebuilt on fly and automatically refreshed on the browser.
-
-```
-npm run dev
-```
-
 
 ### Clean all the generate code
 
@@ -98,12 +101,12 @@ Rebuild all the distribution parts of the package (`/dist/` & `/web/../dist/`). 
 npm run rebuild
 ```
 
-## Development
+## API Development
 
 **Build and start**
 
 ```
-docker-compose up -d
+npm run docker
 ```
 
 **Then open in your browser**
@@ -115,7 +118,7 @@ http://localhost:9000
 **Stop**
 
 ```
-docker-compose stop
+npm run docker:stop
 ```
 
 **Shutdown**
@@ -123,7 +126,7 @@ docker-compose stop
 This removes the containers and default network.
 
 ```
-docker-compose down
+npm run docker:down
 ```
 
 More info about [Docker compose](https://docs.docker.com/compose)
@@ -141,7 +144,7 @@ The conversation bot can be embedded in any web page just simply adding a specia
 ...
 <div id="thinklife-conversation-1" data-mcid="15016" data-redirect="/thank-you/"></div>
 ...
-<script defer src="bot/dist/conversation-1.js">
+<script defer src="bot/dist/conversation-1.js"></script>
 </body>
 </html>
 ```
