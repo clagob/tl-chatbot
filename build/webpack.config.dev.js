@@ -6,6 +6,10 @@ const config = require('../config')
 
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
+  output: {
+    publicPath: '',
+    path: config.dev.distPath
+  },
   // https://webpack.js.org/configuration/devtool/#development
   devtool: 'cheap-module-eval-source-map',
   devServer: {
@@ -21,7 +25,9 @@ const webpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: true
     },
-    proxy: config.dev.server.proxy
+    proxy: {
+      '/api': 'http://localhost:9000'
+    }
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()

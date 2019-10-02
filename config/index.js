@@ -13,12 +13,7 @@ module.exports = {
   },
 
   dev: {
-    distPath: path.resolve(__dirname, '../test/dist'),
-    server: {
-      proxy: {
-        '/api': 'http://localhost:9000'
-      }
-    }
+    distPath: path.resolve(__dirname, '../test/dist')
   },
 
   build: {

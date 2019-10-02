@@ -4,13 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const config = require('../config')
 // import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
-const PUBLIC_PATH = ''
-
-let DIST = config.build.distPath
-if (config.IS_DEV) {
-  DIST = config.dev.distPath
-}
-
 const getEntry = () => {
   const files = glob.sync(config.SRC + '/*.js')
   var entry = {}
@@ -23,15 +16,10 @@ const getEntry = () => {
 const entry = getEntry()
 
 module.exports = {
-  mode: config.ENV,
-  // context: SRC,
   entry: entry,
   output: {
-    path: DIST,
-    publicPath: PUBLIC_PATH,
     filename: '[name].js'
   },
-  devtool: config.IS_DEV ? 'cheap-module-eval-source-map' : 'none',
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
@@ -42,7 +30,6 @@ module.exports = {
   performance: {
     hints: false // 'warning'
   },
-
   module: {
     rules: [
       {
