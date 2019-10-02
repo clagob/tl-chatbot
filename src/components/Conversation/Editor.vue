@@ -181,7 +181,7 @@ export default {
       }
     },
     validateText () {
-      if (!this.validRequired() ||
+      if (!this.validRequired('Please specify a name') ||
           !this.validMinlength() ||
           !this.validMaxlength() ||
           !this.validPattern() ||
@@ -258,7 +258,7 @@ export default {
     validMin (msg) {
       if (this.item.min && this.$refs.input.validity.rangeUnderflow) {
         this.valid = false
-        this.errors.push(msg || 'Please specify a higher value')
+        this.errors.push(msg || 'Please specify a value of ' + this.item.min + ' or higher')
         return false
       }
       return true
@@ -266,7 +266,7 @@ export default {
     validMax (msg) {
       if (this.item.max && this.$refs.input.validity.rangeOverflow) {
         this.valid = false
-        this.errors.push(msg || 'Please specify a lower value')
+        this.errors.push(msg || 'Please specify a value of ' + this.item.max + ' or lower')
         return false
       }
       return true
@@ -282,7 +282,7 @@ export default {
     validMinlength (msg) {
       if (this.item.minlength && this.$refs.input.validity.tooShort) {
         this.valid = false
-        this.errors.push(msg || 'Please specify a longer value')
+        this.errors.push(msg || 'Please specify a longer name')
         return false
       }
       return true
@@ -290,7 +290,7 @@ export default {
     validMaxlength (msg) {
       if (this.item.maxlength && this.$refs.input.validity.tooLong) {
         this.valid = false
-        this.errors.push(msg || 'Please specify a shorter value')
+        this.errors.push(msg || 'Please specify a shorter name')
         return false
       }
       return true
