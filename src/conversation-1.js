@@ -9,10 +9,8 @@ if (process.env.NODE_ENV === 'production') {
   Vue.axios.defaults.baseURL = '//bot.think-life.uk'
 }
 
-/* eslint-disable no-new */
+// eslint-disable-next-line no-new
 new Vue({
-  // router,
-  // store,
   el: '#thinklife-conversation-1',
   components: { App1 },
   template: '<App1/>'
