@@ -10,7 +10,6 @@ export default {
           id: 'MSG-A',
           question: 'So, let’s get you covered!',
           type: 'message',
-          value: '',
           next: 'MSG-B',
           complete: false,
           mode: 'hidden'
@@ -19,7 +18,6 @@ export default {
           id: 'MSG-B',
           question: 'Tell me about yourself...',
           type: 'message',
-          value: '',
           next: 'your-firstname',
           complete: false,
           mode: 'hidden'
@@ -68,7 +66,6 @@ export default {
           id: 'MSG-C',
           question: 'Are you a smoker?',
           type: 'message',
-          value: '',
           next: 'your-smoke-status',
           complete: false,
           mode: 'hidden'
@@ -103,7 +100,6 @@ export default {
           id: 'MSG-D',
           question: 'Nice! Save us some cake.',
           type: 'message',
-          value: '',
           next: 'FORK-PARTNER',
           complete: false,
           mode: 'hidden'
@@ -111,7 +107,7 @@ export default {
         {
           id: 'FORK-PARTNER',
           type: 'hidden',
-          next: (val) => {
+          next: () => {
             if (this.isValue('quote-for', '2')) {
               return 'p-firstname'
             }
