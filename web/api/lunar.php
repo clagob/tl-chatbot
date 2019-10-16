@@ -55,7 +55,7 @@ try {
 
   // Get request Input
   $data = json_decode(file_get_contents("php://input"), TRUE);
-   if (count($data)==0) {
+   if (@count($data)==0) {
     $data = $_POST;
   }
 
@@ -263,7 +263,7 @@ try {
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     $res = curl_exec($ch);
 
-    //print($res.PHP_EOL.PHP_EOL);
+    // print($res.PHP_EOL.PHP_EOL);
 
     if (curl_errno($ch)) {
       //print curl_error($ch).PHP_EOL.PHP_EOL;
