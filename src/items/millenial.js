@@ -8,7 +8,7 @@ export default {
       items: [
         {
           id: 'MSG-A',
-          question: 'So, let’s get you covered!',
+          question: 'Hi! Let’s get you covered!',
           type: 'message',
           next: 'MSG-B',
           complete: false,
@@ -16,7 +16,7 @@ export default {
         },
         {
           id: 'MSG-B',
-          question: 'Tell me about yourself...',
+          question: 'So, tell me about yourself…',
           type: 'message',
           next: 'your-firstname',
           complete: false,
@@ -24,7 +24,7 @@ export default {
         },
         {
           id: 'your-firstname',
-          question: 'What is your first name?',
+          question: 'What’s your first name?',
           type: 'text',
           required: true,
           minlength: 1,
@@ -39,7 +39,9 @@ export default {
         },
         {
           id: 'your-lastname',
-          question: 'What is your last name?',
+          question: () => {
+            return this.getItem('your-firstname').value + ', what’s your last name?'
+          },
           type: 'text',
           required: true,
           minlength: 2,
@@ -56,7 +58,7 @@ export default {
           id: 'quote-for',
           question: 'Ok, who would you like to insure?',
           type: 'options',
-          options: { 1: 'Just me 👍', 2: 'Me & my partner 👥💞' },
+          options: { 1: 'Just me 👤', 2: 'Me & my partner 👥💞' },
           value: '',
           next: 'MSG-C',
           complete: false,
@@ -72,9 +74,9 @@ export default {
         },
         {
           id: 'your-smoke-status',
-          question: 'Remember, no white lies!',
+          question: 'No bluffing!',
           type: 'options',
-          options: { Y: 'I smoke sometimes 🚬💨', N: 'No, it’s not for me.' },
+          options: { Y: 'I smoke sometimes 🚬💨', N: 'Nah, it’s not for me.' },
           value: '',
           next: 'your-dob',
           complete: false,
@@ -82,9 +84,7 @@ export default {
         },
         {
           id: 'your-dob',
-          question: () => {
-            return 'Now, what is your date of birth, ' + this.getItem('your-firstname').value + '? 🎂🍾🥂'
-          },
+          question: 'Now, what’s your date of birth? 🎂🍾🥂',
           type: 'date',
           required: true,
           min: this.ageToDbDate(79),
@@ -92,14 +92,6 @@ export default {
           preAnswer: 'My birthday is ',
           placeholder: 'dd/mm/yyyy',
           value: '',
-          next: 'MSG-D',
-          complete: false,
-          mode: 'hidden'
-        },
-        {
-          id: 'MSG-D',
-          question: 'Nice! Save us some cake.',
-          type: 'message',
           next: 'FORK-PARTNER',
           complete: false,
           mode: 'hidden'
@@ -118,7 +110,7 @@ export default {
         },
         {
           id: 'p-firstname',
-          question: 'What should we call your partner?',
+          question: 'What’s your partner called?',
           type: 'text',
           required: true,
           minlength: 1,
@@ -133,7 +125,9 @@ export default {
         },
         {
           id: 'p-lastname',
-          question: 'What is partner last name?',
+          question: () => {
+            return 'What’s ' + this.getItem('p-firstname').value + '’s last name?'
+          },
           type: 'text',
           required: true,
           minlength: 2,
@@ -148,12 +142,14 @@ export default {
         },
         {
           id: 'p-dob',
-          question: 'And what is their date of birth? 🎂',
+          question: () => {
+            return 'And what’s ' + this.getItem('p-firstname').value + '’s date of birth? 🎂'
+          },
           type: 'date',
           required: true,
           min: this.ageToDbDate(79),
           max: this.ageToDbDate(18),
-          preAnswer: 'My birthday is ',
+          preAnswer: 'Their date of birth is ',
           placeholder: 'dd/mm/yyyy',
           value: '',
           next: 'how-cover',
@@ -164,7 +160,7 @@ export default {
           id: 'how-cover',
           question: 'Do you know how much cover you’d like?',
           type: 'options',
-          options: { yes: 'I sure do! 👍', no: 'I’m unsure.' },
+          options: { yes: 'I sure do! 👍', no: 'I’m unsure. 🤷' },
           value: '',
           next: (val) => {
             switch (val) {
@@ -179,7 +175,7 @@ export default {
         },
         {
           id: 'amount',
-          question: 'Brilliant. Just say how much',
+          question: 'Brilliant. Roughly how much?',
           type: 'number',
           min: 10000,
           max: 1000000,
@@ -194,14 +190,14 @@ export default {
         },
         {
           id: 'product-term',
-          question: '... and for how long?',
+          question: '… and for how long?',
           type: 'number',
           min: 5,
           max: 40,
           required: true,
-          preAnswer: 'I’d like for ',
+          preAnswer: 'For ',
           placeholder: '##',
-          postAnswer: ' years',
+          postAnswer: ' years.',
           value: '',
           next: 'MSG-E',
           complete: false,
@@ -218,11 +214,11 @@ export default {
         },
         {
           id: 'your-telephone',
-          question: 'What’s your best contact number? 🇬🇧📱📞☎',
+          question: 'If we need to speak to you… 📱📞☎',
           type: 'tel',
           required: true,
           pattern: pattern.phonesUK,
-          preAnswer: 'You can reach me at ',
+          preAnswer: 'You can ring me at ',
           placeholder: '07#########',
           value: '',
           next: 'your-email',
@@ -231,11 +227,11 @@ export default {
         },
         {
           id: 'your-email',
-          question: 'How about an email?',
+          question: 'How about an email address, too?',
           type: 'email',
           required: true,
           pattern: pattern.email,
-          preAnswer: 'I’m online at ',
+          preAnswer: 'My email is ',
           placeholder: 'name@email.com',
           value: '',
           next: 'LEGAL',
