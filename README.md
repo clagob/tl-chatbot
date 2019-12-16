@@ -155,5 +155,5 @@ The app will simulate a conversation bot that will ask the user few questions to
 
 On completion the app will redirect to a `/thank-you/` page hosted on the website (not part of the app). This page can be set using the attribute `data-redirect="/thank-you/"`.
 
-NB: The only limitation is that the JavaScript file must be hosted on the same domain (or subdomain) where the `/api/` folder is also hosted. Normally on https://bot.think-life.uk/dist/conversation-1.js
+NB: The only limitation is that the JavaScript file must be hosted on the same domain (or subdomain) where the `/api/` folder is also hosted. Normally on https://bot.think-life.co.uk/dist/conversation-1.js
 
