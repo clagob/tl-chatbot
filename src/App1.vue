@@ -4,6 +4,7 @@
     class="thinklife-conversation"
   >
     <conversation
+      :mcref="mcref"
       :mcid="mcid"
       :redirect="redirect"
       :items="items"
@@ -22,6 +23,7 @@ export default {
   data () {
     return {
       mcid: document.getElementById('thinklife-conversation-1').dataset.mcid || '0',
+      mcref: document.getElementById('thinklife-conversation-1').dataset.mcref || '0',
       redirect: document.getElementById('thinklife-conversation-1').dataset.redirect || '/thank-you/'
     }
   }

@@ -102,7 +102,7 @@
           setTimeout(loadCoversationJs, 2000);
           function loadCoversationJs () {
             var r = document.createElement('script');
-            r.src = (document.location.protocol === 'https:' ? 'https:' : 'http:') + '//bot.think-life.co.uk/dist/conversation-1.js';
+            r.src = (document.location.protocol === 'https:' ? 'https:' : 'http:') + '//localhost:8080/conversation-1.js';
             document.querySelector('head').appendChild(r);
           }
         })
