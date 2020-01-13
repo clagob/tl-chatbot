@@ -261,10 +261,10 @@ You are free to introduce, in a conversation, other items with their respective 
  ---
 
  # API - Authentication
- 
+
  The API are open to call that are share on the same domain (including subdomains).
 
- If you need to set/change the domain of deployment you need to edit the file `/api/auth.php`
+ If you need to set/change the domain of deployment you need to edit the file `/web/api/auth.php`
 
  ```php
  $ALLOW_DOMAIN = 'thinklife.uk';
