@@ -6,10 +6,6 @@
 // Updated: 08/01/2020
 //
 // This version will get the following info from the cookies if available
-// - utm_source
-// - utm_medium
-// - utm_campaign
-// - utm_term
 // - incid
 //
 //
