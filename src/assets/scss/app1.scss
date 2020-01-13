@@ -1,6 +1,16 @@
 .thinklife-conversation {
-  font-family: sans-serif;
-  font-size: 20px;
+
+  @import "variables";
+  @import "conversation";
+  @import "qa";
+  @import "sms";
+  @import "typing";
+  @import "spinner";
+  @import "editor";
+  
+  font-family: $font;
+  font-weight: 400;  
+  font-style: normal;  font-size: 20px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   &,
@@ -9,11 +19,5 @@
   :before {
     box-sizing: border-box;
   }
-  @import "variables";
-  @import "conversation";
-  @import "qa";
-  @import "sms";
-  @import "typing";
-  @import "spinner";
-  @import "editor";
+
 }

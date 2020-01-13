@@ -2,38 +2,43 @@
 
 $blue:        #327fe9;
 $lightGrey:   #e6e7ed;
+$lightPurple: #445092;
+$purple:      #2D253C;
 $gradiant:  linear-gradient(to bottom, #77a7e5 30%,#327fe9 100%);
+$teal:        #07aea1;
 
-$red:         #FF0000;
+$red:         #c12b2b;
+
+$font: 'proxima-nova', sans-serif;
 
 
-$sms-margin:      0 0 .5rem;
-$sms-padding-x:   1rem;
-$sms-padding-y:   .5rem;
-$sms-radius:      1rem;
+$sms-margin:      0 0 1.2rem;
+$sms-padding-x:   1.5rem;
+$sms-padding-y:   0.8rem;
+$sms-radius:      1.7rem;
 
 $sms-in-bg:       $lightGrey;
 $sms-in-txt:      black;
 
-$sms-out-bg:      $gradiant;
+$sms-out-bg:      $lightPurple;
 $sms-out-txt:     white;
-$sms-options-bg:  white;
-$sms-options-txt: black;
-$sms-out-options-border: $lightGrey;
+$sms-options-bg:  darken($lightPurple, 10%);
+$sms-options-txt: white;
+$sms-out-options-border: darken($lightPurple, 20%);
 $sms-edit-txt:    #6c757d;
 
-$sms-editor-bg:               $sms-out-bg;
+$sms-editor-bg:               $lightPurple;
 $sms-editor-txt:              $sms-out-txt;
 $sms-editor-input-bg:         white;
 $sms-editor-input-txt:        black;
-$sms-editor-input-placeholder: #6c757d;
+$sms-editor-input-placeholder: white;
 $sms-editor-input-padding-x:  .5em;
 $sms-editor-input-padding-y:  .3em;
-$sms-editor-button-bg:        $sms-out-bg;
+$sms-editor-button-bg:        $teal;
 $sms-editor-button-txt:       $sms-out-txt;
 $sms-editor-button-padding-x:  calc( #{$sms-editor-input-padding-x} + #{$sms-padding-x} );
 $sms-editor-button-padding-y:  calc( #{$sms-editor-input-padding-y} + #{$sms-padding-y} );
-$sms-editor-button-bg-hover:  black;
+$sms-editor-button-bg-hover:  darken($teal, 10%);
 $sms-editor-button-txt-hover: white;
 $sms-editor-error-bg:         $red;
 $sms-editor-error-txt:        white;
