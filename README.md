@@ -164,7 +164,7 @@ The `client ref` can be set in the attibute `data-mcref="0"`.
 
 On completion the app will redirect to a `/thank-you/` page hosted on the website (not part of the app). This page can be set using the attribute `data-redirect="/thank-you/"`.
 
-NB: The only limitation is that the JavaScript file must be hosted on the same domain (or subdomain) where the `/api/` folder is also hosted. Normally on https://bot.think-life.co.uk/dist/conversation-1.js
+NB: The only limitation is that the JavaScript file must be hosted on the same domain (or subdomain) where the `/api/` folder is also hosted. Normally on https://bot.thinklife.uk/dist/conversation-1.js
 
 
 ---
@@ -258,3 +258,14 @@ You are free to introduce, in a conversation, other items with their respective 
 - `pattern`: Please specify a valid UK postcode
 - `generic`: Please specify a valid value
  
+ ---
+
+ # API - Authentication
+ 
+ The API are open to call that are share on the same domain (including subdomains).
+
+ If you need to set/change the domain of deployment you need to edit the file `/api/auth.php`
+
+ ```php
+ $ALLOW_DOMAIN = 'thinklife.uk';
+ ```
