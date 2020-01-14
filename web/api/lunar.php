@@ -92,7 +92,7 @@ try {
     ////////////////////////////////////////////////////////
     // GoogleAds
     $keywords = ''; // for Client Data Source
-    $client_ref = $_FORM['mcref']; // AdGroupID
+    $client_ref = $_FORM['mcref'] ? $_FORM['mcref'] : "0"; // AdGroupID
 
     // TRACKING ID by INCHORA
     $incid = getCookie('incid', '');
