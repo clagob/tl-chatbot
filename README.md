@@ -1,4 +1,4 @@
-# Conversation Street BOT for Think Life
+# Conversation Street BOT for ThinkLife
 
 Project for leads generation commissioned from the Prince of Gambia.
 
