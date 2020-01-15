@@ -167,6 +167,60 @@ On completion the app will redirect to a `/thank-you/` page hosted on the websit
 NB: The only limitation is that the JavaScript file must be hosted on the same domain (or subdomain) where the `/api/` folder is also hosted. Normally on https://bot.thinklife.uk/dist/conversation-1.js
 
 
+## In a Bootstrap Modal
+
+```html
+<html>
+...
+<body>
+
+  ...
+
+  <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target=".conversation-modal">Get started</button>
+
+  ...
+
+  <div id="conversation-modal" class="modal fade conversation-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+
+          <section 
+            id="thinklife-conversation-1" 
+            data-mcid="15016" 
+            data-mcref="0"
+            data-redirect="/thank-you/"
+          >
+            <div class="d-flex justify-content-center py-5">
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function ($) {
+  $('#conversation-modal').one('show.bs.modal', function (e) {
+    setTimeout(loadCoversationJs, 2000)
+    function loadCoversationJs () {
+      var r = document.createElement('script')
+      r.src = (document.location.protocol === 'https:' ? 'https:' : 'http:') + '//bot.thinklife.uk/dist/conversation-1.js'
+      document.querySelector('head').appendChild(r)
+    }
+  })
+})(window.jQuery)
+</script>
+
+</body>
+</html>
+```
+
+
 ---
 
 # ITEMS - How to set them up
