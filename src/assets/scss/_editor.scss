@@ -71,7 +71,7 @@
 
     input {
       padding: $sms-editor-input-padding-y $sms-editor-input-padding-x;
-      border-color: $sms-in-bg;
+      border-color: $sms-out-bg;
       background: $sms-options-bg;
       color: $sms-options-txt;
       &[type=number],
@@ -93,8 +93,9 @@
       }
 
       &::placeholder {
+        font-family: $font;
         color: $sms-editor-input-placeholder;
-        opacity: 1;
+        opacity: 0.6;
       }
     }
 
