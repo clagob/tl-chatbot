@@ -185,7 +185,7 @@ export default {
     },
     success () {
       // SAVE responses on session storage
-      sessionStorage.setItem('conversation', JSON.stringify(this.responses))
+      sessionStorage.setItem('quote', JSON.stringify(this.responses))
       // Redirect to
       if (/^https?:\/\//i.test(this.redirect)) {
         window.location = this.redirect + '?result=success'
