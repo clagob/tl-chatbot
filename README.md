@@ -176,7 +176,7 @@ NB: The only limitation is that the JavaScript file must be hosted on the same d
 
   ...
 
-  <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target=".conversation-modal">Get started</button>
+  <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#conversation-modal">Get started</button>
 
   ...
 
@@ -206,11 +206,11 @@ NB: The only limitation is that the JavaScript file must be hosted on the same d
 <script>
 (function ($) {
   $('#conversation-modal').one('show.bs.modal', function (e) {
-    setTimeout(loadCoversationJs, 2000)
-    function loadCoversationJs () {
-      var r = document.createElement('script')
-      r.src = (document.location.protocol === 'https:' ? 'https:' : 'http:') + '//bot.thinklife.uk/dist/conversation-1.js'
-      document.querySelector('head').appendChild(r)
+    setTimeout(loadCoversation1Js, 2000)
+    function loadCoversation1Js () {
+      var s = document.createElement('script')
+      s.src = (document.location.protocol === 'https:' ? 'https:' : 'http:') + '//bot.thinklife.uk/dist/conversation-1.js'
+      document.querySelector('head').appendChild(s)
     }
   })
 })(window.jQuery)
