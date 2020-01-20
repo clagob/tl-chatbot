@@ -56,6 +56,16 @@ export default {
       errorMessage: ''
     }
   },
+  computed: {
+    quoteId () {
+      const mask = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+      let result = ''
+      for (var i = 8; i > 0; --i) {
+        result += mask[Math.round(Math.random() * (mask.length - 1))]
+      }
+      return 'TL-' + result
+    }
+  },
   updated () {
     this.scrollToBottom()
   },
@@ -137,6 +147,7 @@ export default {
       var params = this.responses
       params.mcid = this.mcid
       params.mcref = this.mcref
+      params['quote-id'] = this.quoteId
       // console.log(params)
       this.$http({
         method: 'post',
