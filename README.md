@@ -245,6 +245,7 @@ The following are the fields that we need to capture from LUNAR point of view.
 - `mcref`: text - Lunar client reference
  
 **Optional**
+- `quote-id`: auto generate ID - Lunar notes
 - `amount`: number
 - `product-term`: number 
 - `your-title`: text
