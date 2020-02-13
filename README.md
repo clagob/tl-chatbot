@@ -164,7 +164,7 @@ The `client ref` can be set in the attibute `data-mcref="0"`.
 
 On completion the app will redirect to a `/thank-you/` page hosted on the website (not part of the app). This page can be set using the attribute `data-redirect="/thank-you/"`.
 
-NB: The only limitation is that the JavaScript file must be hosted on the same domain (or subdomain) where the `/api/` folder is also hosted. Normally on https://bot.thinklife.uk/dist/conversation-1.js
+NB: The only limitation is that the JavaScript file must be hosted on the same domain (or subdomain) where the `/api/` folder is also hosted. Normally on https://bot.lifemarket.uk/dist/conversation-1.js
 
 
 ## In a Bootstrap Modal
@@ -209,7 +209,7 @@ NB: The only limitation is that the JavaScript file must be hosted on the same d
     setTimeout(loadCoversation1Js, 2000)
     function loadCoversation1Js () {
       var s = document.createElement('script')
-      s.src = (document.location.protocol === 'https:' ? 'https:' : 'http:') + '//bot.thinklife.uk/dist/conversation-1.js'
+      s.src = (document.location.protocol === 'https:' ? 'https:' : 'http:') + '//bot.lifemarket.uk/dist/conversation-1.js'
       document.querySelector('head').appendChild(s)
     }
   })
@@ -322,5 +322,5 @@ You are free to introduce, in a conversation, other items with their respective 
  If you need to set/change the domain of deployment you need to edit the file `/web/api/auth.php`
 
  ```php
- $ALLOW_DOMAIN = 'thinklife.uk';
+ $ALLOW_DOMAIN = 'lifemarket.uk';
  ```
