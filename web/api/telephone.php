@@ -25,7 +25,7 @@ $password = 'Inchora!M4rk3ting';
 $profileGuid = '454F13CA-8C71-40D6-9FEF-A88D821C99E4';
 $configurationId = '2'; //billing profile
 
-$email_notification = "webservices@inchora.com"; // Notification in case of error
+$email_notification = "claudio@gobetti.org"; // Notification in case of error
 
 ////////////////////////////////////////////////////
 // ENV settings - override default

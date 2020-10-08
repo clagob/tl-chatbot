@@ -1,7 +1,5 @@
 # Conversation Street BOT for ThinkLife
 
-Project for leads generation commissioned from the Prince of Gambia.
-
 The project create a Web APP that looks like a converastion but behind the scene is a web form. At the end of the conversation the form is submitted to the CRM LUNAR and the user is redirect to an 'external' `thank-you` page.
 
 The APP can work as single page or be embedded in an existing web page, simply adding an HTML tag and injecting an external JavaScript. This will read and replace the HTML tag with a complex HTML structure (conversation widget) that is controlled and styled by the JavaScript.
@@ -13,7 +11,12 @@ We can have many APPs with different questions (`/src/items/..`) or different st
 
 ### TEST ENV
 
-http://localhost:8080/conversation-#.html
+http://localhost:8080/embedded.html
+
+or
+
+http://localhost:8080/standalone.html
+
 
 **API BOT**
 
@@ -164,7 +167,7 @@ The `client ref` can be set in the attibute `data-mcref="0"`.
 
 On completion the app will redirect to a `/thank-you/` page hosted on the website (not part of the app). This page can be set using the attribute `data-redirect="/thank-you/"`.
 
-NB: The only limitation is that the JavaScript file must be hosted on the same domain (or subdomain) where the `/api/` folder is also hosted. Normally on https://bot.lifemarket.uk/dist/conversation-1.js
+NB: The only limitation is that the JavaScript file must be hosted on the same domain (or subdomain) where the `/api/` folder is also hosted. Normally on https://bot.your-domain.com/dist/conversation-1.js
 
 
 ## In a Bootstrap Modal
@@ -209,7 +212,7 @@ NB: The only limitation is that the JavaScript file must be hosted on the same d
     setTimeout(loadCoversation1Js, 2000)
     function loadCoversation1Js () {
       var s = document.createElement('script')
-      s.src = (document.location.protocol === 'https:' ? 'https:' : 'http:') + '//bot.lifemarket.uk/dist/conversation-1.js'
+      s.src = (document.location.protocol === 'https:' ? 'https:' : 'http:') + '//bot.your-domain.com/dist/conversation-1.js'
       document.querySelector('head').appendChild(s)
     }
   })
@@ -322,5 +325,5 @@ You are free to introduce, in a conversation, other items with their respective 
  If you need to set/change the domain of deployment you need to edit the file `/web/api/auth.php`
 
  ```php
- $ALLOW_DOMAIN = 'lifemarket.uk';
+ $ALLOW_DOMAIN = 'your-domain.com';
  ```

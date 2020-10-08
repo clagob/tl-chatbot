@@ -6,7 +6,7 @@ import App2 from './App2'
 
 Vue.use(VueAxios, axios)
 if (process.env.NODE_ENV === 'production') {
-  Vue.axios.defaults.baseURL = '//bot.lifemarket.uk'
+  Vue.axios.defaults.baseURL = '//bot.your-domain.com'
 }
 
 // eslint-disable-next-line no-new

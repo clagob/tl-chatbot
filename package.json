@@ -7,23 +7,23 @@
     "test": "test"
   },
   "scripts": {
-    "docker": "docker-compose up -d",
-    "dev": "npm run docker && npm run webpack-dev-server",
+    "start": "npm run dev",
+    "dev": "npm run docker && npm run dev:webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.prod.js",
     "rebuild": "npm run docker &&  npm run build",
     "clean": "node build/clean.js",
-    "webpack-dev-server": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.config.dev.js",
+    "dev:webpack-dev-server": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.config.dev.js",
     "watch": "cross-env NODE_ENV=development webpack --watch --progress --config build/webpack.config.dev.js",
     "dev-to-test": "cross-env NODE_ENV=development webpack --progress --config build/webpack.config.dev.js",
-    "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
+    "docker": "docker-compose up -d",
     "docker:stop": "docker-compose stop",
     "docker:down": "docker-compose down"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Inchora/thinklife-bot.git"
+    "url": "git+https://github.com/clagob/tl-chatbot.git"
   },
   "keywords": [
     "bot",
@@ -32,12 +32,12 @@
     "leads",
     "generation"
   ],
-  "author": "Claudio Gobetti <claudio.gobetti@inchora.com>",
+  "author": "Claudio Gobetti <claudio@gobetti.org>",
   "private": true,
   "bugs": {
-    "url": "https://github.com/Inchora/thinklife-bot/issues"
+    "url": "https://github.com/clagob/tl-chatbot/issues"
   },
-  "homepage": "https://github.com/Inchora/thinklife-bot#readme",
+  "homepage": "https://github.com/clagob/tl-chatbot#readme",
   "engines": {
     "node": ">= 12.4.0",
     "npm": ">= 6.9.0"

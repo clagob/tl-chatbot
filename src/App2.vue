@@ -1,6 +1,6 @@
 <template>
   <div
-    id="thinklife-conversation-1"
+    id="thinklife-conversation-2"
     class="thinklife-conversation"
   >
     <conversation

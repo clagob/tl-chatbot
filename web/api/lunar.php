@@ -26,9 +26,7 @@ include 'auth.php';
 $soap_url = 'http://crm.lunarmedia.co.uk/net/webservices/inbound/soappost.aspx';
 
 // Notification in case of error
-$email_notification = "webservices@inchora.com, michael.manning@betterprotect.co.uk";
-// $email_notification = "webservices@inchora.com";
-
+$email_notification = "claudio@gobetti.org";
 ////////////////////////////////////////////////////
 
 try {
