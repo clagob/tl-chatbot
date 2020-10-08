@@ -1,6 +1,6 @@
-# Conversation Street BOT for ThinkLife
+# Conversation Street BOT
 
-The project create a Web APP that looks like a converastion but behind the scene is a web form. At the end of the conversation the form is submitted to the CRM LUNAR and the user is redirect to an 'external' `thank-you` page.
+The project create a Web APP that looks like a converastion but behind the scene is a web form. At the end of the conversation the form is submitted to the third-party CRM and the user is redirect to an 'external' `thank-you` page.
 
 The APP can work as single page or be embedded in an existing web page, simply adding an HTML tag and injecting an external JavaScript. This will read and replace the HTML tag with a complex HTML structure (conversation widget) that is controlled and styled by the JavaScript.
 
@@ -13,10 +13,7 @@ We can have many APPs with different questions (`/src/items/..`) or different st
 
 http://localhost:8080/embedded.html
 
-or
-
 http://localhost:8080/standalone.html
-
 
 **API BOT**
 

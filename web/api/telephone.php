@@ -19,8 +19,8 @@ $customerReference = 'ThinkLife';
 ////////////////////////////////////////////////////
 
 $wsdl = 'https://idmp.gb.co.uk/idm-globalservices-ws/GlobalServices15b.wsdl';
-$username = 'inchoramarketing@aspectwebmedia.com';
-$password = 'Inchora!M4rk3ting';
+$username = 'username';
+$password = '*******';
 
 $profileGuid = '454F13CA-8C71-40D6-9FEF-A88D821C99E4';
 $configurationId = '2'; //billing profile

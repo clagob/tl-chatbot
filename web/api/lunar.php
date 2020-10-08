@@ -27,6 +27,7 @@ $soap_url = 'http://crm.lunarmedia.co.uk/net/webservices/inbound/soappost.aspx';
 
 // Notification in case of error
 $email_notification = "claudio@gobetti.org";
+
 ////////////////////////////////////////////////////
 
 try {
@@ -92,7 +93,6 @@ try {
     $keywords = ''; // for Client Data Source
     $client_ref = $_FORM['mcref'] ? $_FORM['mcref'] : "0"; // AdGroupID
 
-    // TRACKING ID by INCHORA
     $incid = getCookie('incid', '');
 
     ////////////////////////////////////////////////////////

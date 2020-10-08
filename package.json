@@ -1,18 +1,18 @@
 {
   "name": "bot.thinklife",
   "version": "1.0.0",
-  "description": "Conversation bot lead generation",
+  "description": "Conversation bot",
   "main": " ",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "start": "npm run dev",
-    "dev": "npm run docker && npm run dev:webpack-dev-server",
+    "dev": "npm run docker && npm run webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.prod.js",
     "rebuild": "npm run docker &&  npm run build",
     "clean": "node build/clean.js",
-    "dev:webpack-dev-server": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.config.dev.js",
+    "webpack-dev-server": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.config.dev.js",
     "watch": "cross-env NODE_ENV=development webpack --watch --progress --config build/webpack.config.dev.js",
     "dev-to-test": "cross-env NODE_ENV=development webpack --progress --config build/webpack.config.dev.js",
     "lint": "eslint --ext .js,.vue src",
@@ -28,9 +28,7 @@
   "keywords": [
     "bot",
     "conversation",
-    "form",
-    "leads",
-    "generation"
+    "form"
   ],
   "author": "Claudio Gobetti <claudio@gobetti.org>",
   "private": true,

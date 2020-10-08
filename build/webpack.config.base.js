@@ -2,6 +2,7 @@ const glob = require('glob')
 const VueLoaderPlugin = require('vue-loader').VueLoaderPlugin
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const config = require('../config')
+// import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 const getEntry = () => {
   const files = glob.sync(config.SRC + '/*.js')
@@ -40,12 +41,53 @@ module.exports = {
         test: /\.vue$/i,
         exclude: config.NODE_MODULES,
         loader: 'vue-loader'
+        // options: {
+        //   loaders: {
+        //     'css': ExtractTextPlugin.extract({
+        //       use: [
+        //         { loader: 'css-loader', options: { sourceMap: config.IS_DEV, importLoaders: 1 } },
+        //         { loader: 'postcss-loader', options: { sourceMap: config.IS_DEV } }
+        //       ],
+        //       fallback: 'vue-style-loader'
+        //     }),
+        //     'scss': ExtractTextPlugin.extract({
+        //       use: [
+        //         { loader: 'css-loader', options: { sourceMap: config.IS_DEV, importLoaders: 1 } },
+        //         { loader: 'postcss-loader', options: { sourceMap: config.IS_DEV } },
+        //         'sass-loader'
+        //       ],
+        //       fallback: 'vue-style-loader'
+        //     }),
+        //     'sass': ExtractTextPlugin.extract({
+        //       use: [
+        //         { loader: 'css-loader', options: { sourceMap: config.IS_DEV, importLoaders: 1 } },
+        //         { loader: 'postcss-loader', options: { sourceMap: config.IS_DEV } },
+        //         { loader: 'sass-loader', options: { indentedSyntax: true } }
+        //       ],
+        //       fallback: 'vue-style-loader'
+        //     })
+        //   },
+        //   cssSourceMap: config.IS_DEV,
+        //   transformToRequire: {
+        //     video: ['src', 'poster'],
+        //     source: 'src',
+        //     img: 'src',
+        //     image: 'xlink:href'
+        //   },
+        //   // NOT EXPORT
+        //   extract: false
+        // }
       },
       {
         test: /\.jsx?$/i,
         exclude: config.NODE_MODULES,
         loader: 'babel-loader'
       },
+      // {
+      //   test: /\.html$/i,
+      //   exclude: config.NODE_MODULES,
+      //   loader: 'raw-loader',
+      // },
       {
         test: /\.css$/i,
         exclude: config.NODE_MODULES,

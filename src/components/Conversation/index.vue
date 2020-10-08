@@ -141,12 +141,6 @@ export default {
         behavior: 'smooth'
       })
       // el.scrollTop = el.scrollHeight - el.clientHeight
-      // window.scrollTo(0, document.body.scrollHeight)
-      // window.scrollTo({
-      //   top: document.body.scrollHeight,
-      //   left: 0,
-      //   behavior: 'smooth'
-      // })
     },
     submit () {
       this.errorMessage = ''
